@@ -42,14 +42,14 @@ prices: object
 prices, sigs = generate_heston_paths(S, T, r, kappa, theta, v_0, rho, sigma, steps, paths, return_vol=True)
 
 # Plot Heston Price paths
-plt.figure(figsize=(7, 6))
+plt.figure(figsize=(8, 8))
 plt.plot(prices.T)
 plt.title('Heston Price Paths Simulation')
 plt.xlabel('Time Steps')
 plt.ylabel('Stock Price')
 plt.show()
 # Plot Heston volatility paths
-plt.figure(figsize=(7, 6))
+plt.figure(figsize=(8, 8))
 plt.plot(np.sqrt(sigs).T)
 plt.title('Heston Stochastic Vol Simulation')
 plt.xlabel('Time Steps')
