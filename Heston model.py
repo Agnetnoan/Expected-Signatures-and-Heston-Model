@@ -65,7 +65,6 @@ for i in range(paths):
     prices_with_time[i] = np.array([prices[i], time_array])
 
 # prices.shape
-
 # Calculations of signature using iisignature package
 sigs_iisignature = np.array([iisignature.sig(path.T, 5) for path in prices_with_time])
 
