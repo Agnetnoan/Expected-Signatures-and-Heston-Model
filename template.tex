@@ -1,0 +1,1755 @@
+%------------------------------------------------------------------------------------
+%	                   OTHER DOCUMENT CONFIGURATIONS
+%------------------------------------------------------------------------------------
+\documentclass[12pt,a4paper]{report}
+
+% --------- Packages ----------
+%\NeedsTeXFormat{LaTeX2e}
+%\usepackage[dvips]{epsfig}
+%\usepackage[latin1]{inputenc}
+\usepackage[english]{babel} 
+\usepackage{amsmath,amsfonts,amsthm}
+%\usepackage{mathtools}
+\usepackage{shuffle}
+\usepackage{a4wide}
+%\usepackage{psfig}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+%\usepackage{enumitem}
+\usepackage{paralist}\usepackage[style=numeric, backend=biber]{biblatex}
+%\usepackage{biblatex}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{longtable}
+\usepackage{tabularx}       
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{floatflt}
+\usepackage{afterpage}
+\usepackage{graphicx}
+%\usepackage{csquotes}
+\usepackage{moreverb}     
+%\usepackage[]{mcode}
+\usepackage{bbm}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{subcaption}
+\usepackage{color}
+
+% ---------- Seitendefinitionen ----------
+\setlength{\topmargin}{1.5cm}
+\setlength{\headheight}{15pt}
+\setlength{\headsep}{20pt}
+\setlength{\topskip}{12pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\textheight}{240mm}
+\setlength{\textwidth}{160mm}
+\setlength{\voffset}{-2cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\sloppy
+\frenchspacing
+\allowdisplaybreaks 
+
+% ---------- Commands ----------
+\newenvironment{rcases}
+  {\left.\begin{aligned}}
+  {\end{aligned}\right\rbrace}
+\renewcommand{\baselinestretch}{1.25}                % Zeilenabstand
+\AtBeginDocument{\renewcommand{\figurename}{Figure}}   % Bezeichnung fuer Abbildungen
+\renewcommand{\textfraction}{0}
+\newcommand{\clearemptydoublepage}{%                 % neue Kapitel auf ungerade Seite
+  \newpage{\pagestyle{empty}%
+  \cleardoublepage}}
+\newcounter{saveeqn}                                 % equation numbering (2.10 a)
+\newcommand{\alpheqn}{%
+  \stepcounter{equation}%
+  \setcounter{saveeqn}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \renewcommand{\theequation}{\arabic{chapter}.\arabic{saveeqn} \alph{equation}}}
+\newcommand{\reseteqn}{%
+  \setcounter{equation}{\value{saveeqn}}%
+  \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}}
+\newcommand{\sgn}[1]{\rm sgn\left(#1\right)}         % sign-function
+\newcommand{\vektor}[1]{\left(\begin{array}{c}#1\end{array}\right)} % Vektoren
+\newcommand{\bm}[1]{{\mbox{{\boldmath$#1$}}}}        % Fettdruck in Formeln
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+  
+ % ---------- Theorems ----------
+ \theoremstyle{definition}
+\newtheorem{assumption}{Assumption} 
+\renewcommand*{\theassumption}{\Alph{assumption}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma} 
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+
+ % ---------- References ----------
+\addbibresource{references.bib}
+%\bibliography{references}
+
+%\bibliography{./references}
+%------------------------------------------------------------------------------------
+%	                  DOCUMENT SET PAGES
+%------------------------------------------------------------------------------------
+\begin{document}
+
+% ---------- Titlepage -----------
+\begin{titlepage}
+\voffset-40mm
+  \parbox{1.5cm}{\resizebox*{110pt}{!}{\includegraphics{TUM_Logo.pdf}}}\hspace{310pt}
+  \parbox{1.5cm}{\resizebox*{90pt}{!}{\includegraphics{Institutslogo.pdf}}}
+\vspace*{1.5cm}
+\begin{center}
+{\Huge Technische Universit\"at M\"unchen} 
+\\
+\vspace*{1cm}
+{\huge \sc{Department of Mathematics}} 
+\\
+\vspace*{4cm}
+{\Huge {\bf Analysing the relation of expected signatures to laws of stochastic processes}}\\
+%\vspace*{1cm}
+%{\Large {\bf And here the subtitle}}\\
+\vspace*{2cm}
+{\Large Master Thesis}\linebreak \\ 
+{\Large by}\linebreak \\
+{\Large Anton Hancharyk}\\
+\vspace*{2cm}
+{\Large 
+\begin{tabular}{ll}
+Supervisor: & Prof. Dr. Blanka Horvath\\
+Advisor: & Yannick Limmer \\
+Submission Date: & Date Date 
+\end{tabular}
+}
+\end{center}
+\end{titlepage}
+
+% ---------- Declaration and Abstract ----------
+
+\thispagestyle{plain}
+\vspace*{18cm}
+\noindent
+I hereby declare that this thesis is my own work and that no other sources have been used except those clearly indicated and referenced.\\\\\\\\
+
+Munich, DATE
+\newpage 
+
+\begin{abstract}
+About 200 words and summarizing the thesis. 
+\end{abstract}
+
+% ---------- Content ----------
+\pagenumbering{roman}\setcounter{page}{0}
+\pagestyle{headings}
+\tableofcontents
+\pagenumbering{arabic}
+ 
+
+
+\chapter{Introduction}
+%------------------------------------------------------------------------------------
+%	                  INTRODUCTION
+%------------------------------------------------------------------------------------
+Here some introductory work. 
+
+%The topic of this thesis is the analysis of the relation between expected signatures and laws of stochastic processes. Stochastic processes are mathematical models that describe the evolution of random phenomena over time. They are widely used in many areas of science and engineering, including finance, physics, biology, and engineering.
+%Expected signatures, also known as characteristic or moment generating functions, are mathematical objects that encode the distribution of a random variable. They are defined as the expected value of the signature of a random variable, which is a formal power series that encodes the moments of the random variable. Expected signatures have many useful properties, including the ability to compute cumulants and moments of the random variable, and to transform the distribution of the random variable.
+
+
+%As discussed in Section 1.2.3, the signature of a path X : [a, b] 7→ R d is all that is needed to determine the endpoint of the solution to a linear (and, less trivially, non-linear) differential equation driven by X, which was first shown by Chen [5] in the smooth setting, and later extended by Hambly and Lyons [14] and Boedihardjo et al. [2] to less regular paths. The works of these authors in fact shows that the signature captures deep geometric properties of a path, which we briefly discuss here.
+%A natural question one may ask is the following: is a path completely determined by its signature? In light of the time-reversal property and Chen’s identity, as well as the invariance of the signature under time reparametrizations, the answer, in general, is no. For example, one can never recover from the signature the exact speed at which the path is traversed (due to invariance under time reparametrizations), nor can one tell apart the signature of a trivial constant path and that of a path concatenated with its time-reversal.
+%However, a far less elementary fact is that this is essentially the only information one loses from the signature. For example, for a path X which never crosses itself, the signature is able to completely describe the image and direction of traversal of the path (that is, all the points that X visits and the order in which it visits them). This demonstrates the signature’s ability to completely determine the geometric properties of a path which does not possess degeneracies of a certain kind consisting of movements going directly back onto itself (this is made precise using the notion of a tree-like path introduced in [14]).
+
+
+
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%https://ora.ox.ac.uk/catalog/uuid:3dd5e063-bde0-434f-a781-61d3fe22aaa1/download_file?file_format=application%2Fpdf&safe_filename=Thesis-Chevyrev.pdf
+%In Chapter 2 we introduce a universal topological algebra E(V ) associated to a vector space V , in which we embed the signatures of V -valued paths. The primary motivation for a topology on the group of signatures is to make sense of what we mean by a random signature. The induced topology, however, exhibits a natural interpretation in terms of dierential equations: a sequence of signatures converges if and only if the solution to (1.0.3) converges for every continuous linear map M : V 7→ L(W).
+%In Chapter 3 we recall the fundamental results of rough paths theory. The main link with Chapter 2 is that the signature of a rough path can always be identied with an element of E(V ). We highlight the recent work of Boedihardjo, Geng, Lyons and Yang [4] on the classication of rough paths through their signatures, particularly in connection with our work on the characteristic function and weak convergence of solutions to rough dierential equations.
+
+
+
+%In general, the radius of convergence of the expected signature depends on the distribution of the random variable $X$. For example, if $X$ is a Gaussian random variable with mean 0 and variance 1, then the expected signature of $X$ is given by the series
+%\begin{equation}
+%	\mathbb{E}[S_t(X)] = \sum_{k \geq 0} \frac{(it)^k}{k!} = \exp(it),
+%\end{equation}
+%which has a radius of convergence of $\infty$. This means that the expected signature of a Gaussian random variable always converges for any value of $t$.
+%In general, the radius of convergence of the expected signature can provide valuable information about the distribution of the random variable $X$. It can help identify the range of values of $t$ for which the expected signature is well-defined, and it can provide insight into the behavior of the expected signature as a function of $t$.
+
+
+\chapter{Basic theory} \label{chapter}
+%------------------------------------------------------------------------------------
+%	                  CHAPTERNAME
+%------------------------------------------------------------------------------------
+
+
+In this chapter, we cover some of the definitions, examples and theorems, in other words, key concepts to describe signatures and their properties. This chapter is mainly referring to Chevyrev and  Kormilitzin \parencite{chevyrev2016primer}.
+
+
+\section{Path}
+
+%We start by defining one of the basic elements for a theory. 
+In this section, we define some of the basic elements for a theory and provide some examples. We will begin with the definition of a path, as this is the primary definition for our further discussion.
+\begin{definition}
+	 Let $a$ and $b$ are real numbers, such that the interval $[a,b]\in \mathbb{R}$. Define a \textit{path} $X$ to $\mathbb{R}^d$ as a continuous mapping from interval $[a,b]$ to $\mathbb{R}^d$, which can be written as $X:[a,b]\rightarrow\mathbb{R}^d$.  
+\end{definition}
+Note that we will use the short notation $X_t = X(t)$ to indicate parameter dependency on $t\in[a,b]$. 
+
+We will assume that all paths are piecewise differentiable, such a path that is continuous and differentiable on each subinterval of the existing partition of the interval $[a,b]$. Moreover, a path which has derivatives of all orders we will be considered as smooth.
+%https://link.springer.com/content/pdf/10.1007/978-1-4471-3987-4.pdf 
+% Book about piecewise differentiable path (page 59-60)
+Let's now show some examples with graphs to give the reader an idea of these types of paths we are going to examine.
+
+\begin{example}
+	So let's begin with two examples of smooth paths in $\mathbb{R}^2$ in Fig.\ref{fig:smooth}:
+	\begin{equation}
+			\begin{aligned}
+		(a)&: X_t=\{X_t^1,X_t^2\}=\{t, \sin t\}, \: t\in [-\pi,\pi]\\
+			(b)&: X_t=\{X_t^1,X_t^2\}=\{t, \exp t\}, \: t\in [0,3]
+		\end{aligned}
+	\end{equation}
+
+	\begin{figure}[!htbp]
+		\centering
+		\begin{subfigure}{0.5\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Plot_sin.png}
+			\caption{}
+			\label{fig:sub1}
+		\end{subfigure}%
+		\begin{subfigure}{0.5\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Plot_exp.png}
+			\caption{}
+			\label{fig:sub2}
+		\end{subfigure}
+		\caption{Examples of smooth paths in $R^2$}
+		\label{fig:smooth}
+	\end{figure}
+
+%	\begin{figure}[!htbp]
+%		\includegraphics[width=0.450\textwidth]{Plot_sin.png}
+%		\hspace{\fill}
+%		\includegraphics[width=0.450\textwidth]{Plot_exp.png}
+%		\caption{Examples of smooth paths in $R^2$}
+%		\label{fig:smooth}
+%	\end{figure}
+
+\end{example}
+
+We will use the same parametrization for $d$-dimensions case $\mathbb{R}^d$, namely
+\begin{equation}
+	X:[a,b]\rightarrow\mathbb{R}^d,  X_t=\{X_t^{1},X_t^{2},...,X_t^{d}\}.
+\end{equation}
+
+\begin{example}
+	In figure 2.2 we show an example of a piecewise linear path. We have taken a  stock prices at time $t$ as an example of a function $f(t)$: 
+	\begin{equation}
+		X_t=\{X_t^1,X_t^2\}=\{t, f(t)\}, \: t\in [0,1000]\\
+	\end{equation}
+	\begin{figure}[!htbp]
+			\includegraphics[width=\linewidth]{Plot_prices.png}
+			\caption{Example of piecewise linear path}
+			\label{fig:prices}
+	\end{figure}
+\end{example}
+Let us now define the \textit{path integral}, which is also called the line integral, i.e. the integral where the integrable function is taken along the path. In particular, the line integral of one-dimensional path $X:[a,b]\rightarrow\mathbb{R}$ against function $f:\mathbb{R}\rightarrow\mathbb{R}$ is determined as follows
+\begin{equation}
+	\int_{a}^{b} f(X_t)\,dX_t=\int_{a}^{b} f(X_t)\dot{X_t}\,dt,
+\end{equation}
+where the right-hand side integral is the Riemann integral of continuous bounded functions. By $\dot{X_t}$ we denoted the derivative with respect to the time variable $t$, namely $\dot{X_t} =\,dX_t/dt$. Here we want to point out that the integrand $f(X_t)$ is a real-valued path which is defined on the interval $[a,b]$. 
+
+Generally, any path $Y:[a,b]\rightarrow\mathbb{R}$  can be integrated over a path $X:[a,b]\rightarrow\mathbb{R}$, by defining $f(X_t)=Y_t$ and writing
+\begin{equation}
+	\int_{a}^{b} Y_t\,dX_t=\int_{a}^{b} Y_t\dot{X_t}\,dt.
+\end{equation}
+
+Let us now consider two examples of path integrals in one- and two-dimensional cases. 
+\begin{example}
+	Assuming $Y_t = 1$ is a constant path for all $t\in[a,b]$. Then taking the path integral of $Y$ against a path $X:[a,b]\rightarrow\mathbb{R}$ we obtain the increment of the path $X$:
+	\begin{equation}
+		\int_{a}^{b}\,dX_t=\int_{a}^{b}\dot{X_t}\,dt=X_b-X_a
+	\end{equation}
+\end{example}
+%Этот пример показал нам, что в одно-размерном случае интеграл высчитывается просто....
+
+\begin{example}
+  Consider the two-dimensional path as simple example of an iterated integral, a term that is crucial to define the path signature. The definition of which we will provide in the next section.
+ 	\begin{equation} 	
+  	X_t=\{X_t^1,X_t^2\}=\{e^t, t^2\}, \: t\in [0,1]
+  	 \end{equation}
+  The numerical calculation of the path integral is obtained as follows  
+  \begin{equation}
+  	\int_{0}^{1} X_t^1 \,d X_t^2=\int_{0}^{1} e^t 2t \,d t=2
+  \end{equation}
+  
+\end{example}
+
+
+
+
+\section{The signature of a path}
+
+Before defining a signature, let us define what an \textit{iterated integral} is. Here, for $d$-dimensional paths we will use the notations from the previous section, where each component $X^{i}:[a,b]\rightarrow\mathbb{R}$ is a real-valued path. Let us define the increment of $i$-th coordinate of the path at time $t\in \mathbb{R}$ by following expression:
+
+\begin{equation}
+	S(X)_{a,t}^{i}=\int_{a<s<t}\,dX_s^{i}=X_t^{i}-X_a^{i},
+	\label{Equation1}
+\end{equation}
+
+where $t\in[a,b]$, $a$ is a starting point and $i\in \{1, ...,d\}$. Note that the mapping $S(X)_{a,b}^{i}:[a,b]\rightarrow\mathbb{R}$ is a real-valued path, since the components $X^{i}$ are real-valued paths. 
+
+To define double-iterated integral for any index pair $i,j\in \{1,..., d\}$ , we use the following notation
+ 
+\begin{equation}
+	S(X)_{a,t}^{i,j}=\int_{a<s<t}S(X)_{a,s}^{i}\,dX_s^{j}=\int_{a<r<s<t}\,dX_r^{i}\,dX_s^{j}
+\end{equation}
+
+where $S(X)_{a,s}^{i}$ is defined in the same way as in (\ref{Equation1}) and $a,r,s,t$ are such that $a<r<s$ and $a<s<t$. Note that $S(X)_{a,s}^{i}$ and $X_s^{j}$ are real-valued paths, and therefore $S(X)_{a,t}^{i,j}:[a,b]\rightarrow\mathbb{R}$ are a real-valued path too.
+
+Similarly we define triple-iterated integral for indices $i,j,k\in \{1,...,d\}$:
+\begin{equation}
+	S(X)_{a,t}^{i,j,k}=\int_{a<s<t}S(X)_{a,s}^{i,j}\,dX_s^{k}=\int_{a<q<r<s<t}\,dX_q^{i}\,dX_r^{j}\,dX_s^{k}
+\end{equation}
+
+Note, that $S(X)_{a,t}^{i,j,k}:[a,b]\rightarrow\mathbb{R}$ is a real-valued path, since $S(X)_{a,s}^{i,j}$ and $X_s^{k}$ are real-valued paths.
+
+Continuing to do this $k\in {1,...,d}$ times, we determine the \textit{$k$-fold iterated integral} of $X$, which is also a real-valued path, since $S(X)_{a,s}^{i_1,...,i_{k-1}}$ and $X_{s}^{i_k}$ are real-valued paths. For $k$-fold iterated integral we set following notation 
+\begin{equation}
+	S(X)_{a,t}^{i_1,...,i_{k}}=\int_{a<t_k<t}...\int_{a<t_1<t_2}\,dX_{t_1}^{i_1}...\,dX_{t_k}^{i_k}.
+\end{equation}
+
+Now, with the definition and examples of iterated integrals, we can finally formulate a definition of the signature of a path $X$.
+
+\begin{definition}
+ %Ссылку вставить??
+The \textit{signature} of a path $X:[a,b]\rightarrow\mathbb{R}^d$, denoted by $S(X)_{a,b}$, is the sequence of all the iterated integrals of the path $X$. Formally, $S(X)_{a,b}$ is the sequence of real numbers
+\begin{equation}
+	S(X)_{a,b}=(1,S(X)_{a,b}^{1},...,S(X)_{a,b}^{d},S(X)_{a,b}^{1,1},S(X)_{a,b}^{1,2},...)
+\end{equation}
+where the first component, by convention,  is equal to 1, and the superscripts run along the set of all \textit{multi-indexes}
+\begin{equation}
+	W=\{(i_1,...,i_k)|k\geq1, i_1,...,i_k\in \{1,...,d\}\}
+\end{equation}
+The set $W$ above is also frequently called the set of \textit{words} on the \textit{alphabet} $A =\{1,...,d\}$ consisting of $d$ letters.
+\end{definition}
+\begin{example}
+	Let's say we have an alphabet that consists of only two letters $A =\{1,2\}$. Then from these letters an infinite number of words can be formed.
+	\begin{equation}
+		W_3=(1,2,11,12,21,22,111,112,121,122,211,212,222...)
+	\end{equation}
+\end{example}
+Obviously, when using signatures in calculations, we cannot compute an infinite number of signature components. Therefore, in the implementation, we will use only truncated forms of signatures. However, even in this case, we may face the problem of calculating a large amount of data, as the number of terms in the signature grows exponentially. So we get the following formula for calculating the length of the signature vector of $d$-dimensional path with $m$ level of truncation:
+
+\begin{equation}
+	s_{len}=\dfrac{d(d^m-1)}{d-1}.
+\end{equation}
+
+For a better illustration, we provide a small table with examples of signature dimensions.
+
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{l|l|l|l|l}
+		& \textcolor[rgb]{0.2,0.2,0.2}{d=2} & \textcolor[rgb]{0.2,0.2,0.2}{d=3} & \textcolor[rgb]{0.2,0.2,0.2}{d=5} & \textcolor[rgb]{0.2,0.2,0.2}{d=7}  \\
+		\textcolor[rgb]{0.2,0.2,0.2}{m=2} & 6                                 & 12                                & 30                                & 56                                 \\
+		\textcolor[rgb]{0.2,0.2,0.2}{m=4} & 30                                & 120                               & 780                               & 2800                               \\
+		\textcolor[rgb]{0.2,0.2,0.2}{m=5} & 62                                & 364                               & 3905                              & 19607                             
+	\end{tabular}
+	\caption{The sizes of signatures}
+	\label{SignatureSize}
+\end{table}
+
+Let now consider a simple example of a signature. For a better illustration, in the following example we will look at one-dimensional path. 
+
+\begin{example}
+	Assume we have $A =\{1\}$ as our index set, and the set of multi-indexes is $W=\{(1,...,1)| k\geq1\}$, where "$1$" is written $k$ times. It can be easily checked that the signature of path $X:[a,b]\rightarrow \mathbb{R}$, $X_t=t$ is calculated as
+	\begin{equation}	
+			\begin{aligned}
+			S(X)_{a,b}^{1}&=X_b-X_a, \\ 
+			S(X)_{a,b}^{1,1}&=\dfrac{(X_b-X_a)^2}{2!},\\
+			S(X)_{a,b}^{1,1,1}&=\dfrac{(X_b-X_a)^3}{3!},\\ 
+			\vdots .			
+			\end{aligned}	
+	\end{equation}	
+\end{example}
+
+We can conclude that for one-dimensional paths, the signature of the path $X:[a,b]\rightarrow\mathbb{R}$ depends only on $X_b-X_a$, i.e. on its increments.
+
+\begin{example}
+	Let now consider a two-dimensional path. In this case the set of indexes is $A=\{1,2\}$ and multi-indexes set is given by
+	\begin{equation}	
+		W=\{(i_1,...,i_k)|k\geq1, i_1,...,i_k\in \{1,2\}\}.
+	\end{equation}	
+Let now assume that the path is	defined in a following way
+\begin{equation}	
+	\begin{aligned}
+	X_t&=\{X_t^{1},X_t^{2}\}=\{t-1,t^3+1\}, \: t \in [0,3],\\
+	dX_t&=\{\,dX_t^{1},\,dX_t^{2}\}=\{\,dt,3t^2\,dt\}
+	\end{aligned}	
+\end{equation}	
+
+In the next calculations, we will show that the signature terms are not computed simply by increments, as was the case before.  Let's show the computation of some first components of the signature.
+	\begin{equation}	
+	\begin{aligned}
+		S(X)_{0,3}^{1}&=\int_{0<t<3}\, dX^1_t=\int_0^3\, dt=X^1_3-X^1_0=3, \\ 
+		S(X)_{0,3}^{2}&=\int_{0<t<3}\, dX^2_t=\int_0^3\, 3t^2dt=X^2_3-X^2_0=27, \\
+		S(X)_{0,3}^{1,1}&=\iint_{0<t_1<t_2<3}\, dX^1_{t_1}\,dX^1_{t_2}=\int_0^3[\int_0^{t_2}\,dt_1]\, dt_2=\dfrac{9}{2}, \\ 
+		S(X)_{0,3}^{1,2}&=\iint_{0<t_1<t_2<3}\, dX^1_{t_1}\,dX^2_{t_2}=\int_0^3[\int_0^{t_2}\,dt_1]\, 3t_2^2dt_2=\dfrac{243}{4}, \\ 
+		S(X)_{0,3}^{2,1}&=\iint_{0<t_1<t_2<3}\, dX^2_{t_1}\,dX^1_{t_2}=\int_0^3[\int_0^{t_2}3t_1^2\,dt_1]\, dt_2=\dfrac{81}{4}, \\ 
+			S(X)_{0,3}^{2,1}&=\iint_{0<t_1<t_2<3}\, dX^2_{t_1}\,dX^2_{t_2}=\int_0^3[\int_0^{t_2}3t_1^2\,dt_1]3t_2^2\, dt_2=\dfrac{729}{2}, \\ 
+		S(X)_{0,3}^{1,1,1}&=\iiint_{0<t_1<t_2<t_3<3}\, dX^1_{t_1}\,dX^1_{t_2}\,dX^1_{t_3}=\int_0^3[\int_0^{t_3}[\int_0^{t_2}\,dt_1]\,dt_2]\, dt_3=\dfrac{9}{2}, \\  
+		\vdots .			
+	\end{aligned}	
+\end{equation}	
+Proceeding in the same way, it is possible to calculate each term of the signature $S(X)_{0,3}$. But once we get the results of the first calculations, we can notice that we only use the information encoded in the differential $\,dX$ to calculate iterated integrals (signature terms), rather than using the path information directly from $X$. Thus we can note that signatures depend on changes in path $X$, but not on a concrete position. Moreover, we observe that there were $\mp 1$ shifts in the path coordinates, but this had no effect on the calculation of the iterated integrals.
+
+\end{example}
+
+
+%Написать что-ниюудб про Geometric intuition of the first two levels с рисунком ??????????
+
+
+
+\section{Properties of signature}
+
+In this chapter we will describe some main properties of the signatures of path.
+
+Let us state a lemma that describes one of the fundamental properties of the signature, which follows directly from the definition of iterated integrals and the fact that the starting point of the path does not affect iterated integrals.
+The proof for this lemma can be found in \parencite{chevyrev2016primer}.
+\begin{lemma}
+	Let define the path $\tilde{X_t} = X_t + x$, where $x\in\mathbb{R}^d$, then path $\tilde{X_t}$ will have the same signature as path $X_t$, i.e. $S(\tilde{X})_{a,b}^{i_1,...,i_k}= S(X)_{a,b}^{i_1,...,i_k}$.
+\end{lemma}
+
+\subsection{Invariance under time reparameterizations}
+
+By \textit{reparameterization} we will consider a continuous, increasing, surjective function $\phi:[a,b]\rightarrow[a,b]$. 
+
+Let assume that we have two real-valued paths $X,Y:[a, b]\rightarrow\mathbb{R}$ and reparameterization $\phi:[a,b]\rightarrow[a,b]$. Moreover, determine the reparameterized paths $\tilde{X},\tilde{Y}: [a,b]\rightarrow\mathbb{R}$ such that $\tilde{X}_t=X_{\phi(t)}$ and $\tilde{Y}_t = Y_{\phi(t)}$. Note that using the substitutions with reparametrization we can write the following 
+\begin{equation}\label{2.19}
+	\dot{\tilde{X}}_t=\dot{X}_{\phi(t)}\dot{\phi(t)}.
+\end{equation}	
+Using these notations we can write the path integral of $\tilde{X}$ and $\tilde{Y}$ as following
+\begin{equation}	
+		\int_{a}^{b} \tilde{Y}_t\,d\tilde{X}_t=\int_{a}^{b} Y_{\phi(t)}\dot{ X}_{\phi(t)}\dot{\phi(t)} \,dt\overset{(\ref{2.19})}=\int_{a}^{b} Y_{\phi(t)}\,dX_{\phi(t)},
+\end{equation}	
+
+what concludes the invariance of path integrals from time reparametrization.
+
+The same finding can be applied to the $d$-dimensional path $X :[a, b]\rightarrow\mathbb{R}^d$. As a result, we can formulate following result for the signatures.
+\begin{lemma}
+The signature $S(X)_{a,b}$ is invariant under the time reparametrization of path $X$.
+\end{lemma}
+\begin{proof}
+	 Consider reparameterization $\phi:[a,b]\rightarrow[a,b]$ and path $\tilde{X}_t=X_{\phi(t)}$. Thus, it follows from the above and from the fact, that every term of the signature $S(X)_{a,b}^{i_1,...,i_k}$ can be defined as an iterated linear integral of path $X$, that
+	\begin{equation}	
+		S(\tilde{X})_{a,b}^{i_1,...,i_k}=S(X)_{a,b}^{i_1,...,i_k}, \forall k\geq 0, i_1,...,i_k \in \{1,...,d\}
+	\end{equation}	
+	This gives us the conclusion that the signatures are invariant to the time reparameterization.
+\end{proof}
+
+From this we can conclude that with the use of the signature we will not be able to understand and restore the exact speed of changes of the path.
+
+
+\subsection{Shuffle product}
+
+In this section we will define a shuffle product of multix-indexes and shuffle product identity for signatures, which was first shown by Ree \parencite{ree1958lie}. Due to this fundamental property, the calculation of the product of two signature terms $S(X)_{a,b}^{i_1,...,i_k}$ and $S(X)_{a,b}^{j_1,...,j_k}$ can be replaced by the calculation of the sum of the signature terms of $S(X)_{a,b}$ , whose indices depend only on the multi-indexes  $(i_1,..., i_k)$ and $ (j_1,..., j_k)$. 
+
+
+%determine a \textit{permutation} $\sigma$ of the set $\{1,..., k+m\}$ which we call a $(k,m)$-shuffle if
+
+
+ Firstly, we call by\textit{ $(k,m)$-shuffle} a permutation $\sigma$ of the set $\{1,..., k+m\}$, if $\sigma^{-1}(1)<...< \sigma^{-1}(k)$ and $\sigma^{-1}(k+1)<...<\sigma^{-1}(k+m)$. For a better understanding of such permutations, one may recall the famous riffle shuffle method of two piles of cards. An important feature of shuffling is that when shuffling two packs of cards into one, the order of the cards of the original piles will remain the same in the final pile. In other words, with this method of card shuffling it would not matter if the cards of the first stack were mixed with one card or several cards of the other deck, the order of the cards will not be altered. Back to our notations, so by shuffle of indexes $(1,...,k)$ and $(k+1,...,k+m)$ we will denote a list $(\sigma(1),...,\sigma(k+m))$. Note, that the set of all $(k,m)$-shuffles we denote by Suffles$(k,m)$.
+
+\begin{definition}%\parencite[see][]{chevyrev2016primer}
+	%ссылку встваить???
+	Consider two multi-indexes $I=(i_1,...,i_k)$ and $J=(j_1,...,j_m)$ with $i_1,..., i_k, j_1,..., j_m \in \{1,...,d\}$. Define the multi-index
+	\begin{equation}
+		(r_1,...,r_k,r_{k+1},...,r_{k+m})=(i_1,..., i_k, j_1,..., j_m)
+	\end{equation}
+The \textit{shuffle product} of $I$ and $J$, denoted $I\shuffle J$, is a finite set of multi-indexes of length $k+m$ defined as follows
+\begin{equation}
+	I\shuffle J=\{(r_{\sigma(1)}, ...,r_{\sigma(k+m)}|\sigma \in \text{Shuffles}(k,m)\}.
+\end{equation}
+\end{definition}
+
+Let us now state the theorem, which shows us the shuffle product identity for signatures from Ree \parencite{ree1958lie}.
+\begin{theorem}
+	For a path $X:[a,b]\rightarrow \mathbb{R}^d$ and two multi-indexes $I = (i_1, . . . , i_k)$ and $J = (j_1, . . . , j_m)$ with $i_1, . . . , i_k, j_1, . . . , j_m \in \{1, . . . , d\}$, it holds that
+	\begin{equation}
+		S(X)_{a,b}^I S(X)_{a,b}^J=\sum_{K\in I\shuffle J}S(X)_{a,b}^K.
+	\end{equation}
+\end{theorem}
+The idea for the proof was taken from \parencite{fermanian2021learning}.
+\begin{proof}
+	To show this identity we have to partition the domain of integration. As a result, we get the following calculations
+	\begin{equation}
+		\begin{aligned}
+			S(X)_{a,b}^I S(X)_{a,b}^J&=\idotsint_{a<u_1<...<u_k<b} \,dX_{u_1}^{i_1}...\,dX_{u_k}^{i_k} \idotsint_{a<t_1<...<t_m<b} \,dX_{t_1}^{j_1}...\,dX_{t_m}^{j_m}\\&= \sum_{\sigma \in \text{Shuffles}(k,m)}\idotsint_{a<v_1<...<v_{k+m}<b} \,dX_{v_1}^{r_{\sigma(1)}}...\,dX_{v_{k+m}}^{r_{\sigma(k+m)}}\\&= \sum_{K\in I\shuffle J}S(X)_{a,b}^K,
+		\end{aligned}
+	\end{equation}
+with $(r_1,...,r_k,r_{k+1},...,r_{k+m})=(i_1,..., i_k, j_1,..., j_m)$.
+\end{proof}
+
+\begin{example}
+Let we have a two-dimensional path $X:[a,b]\rightarrow \mathbb{R}^2$ and its signature $S(X)_{a,b}$. Thus from shuffle product we have
+	\begin{equation}
+		\begin{aligned}
+			S(X)_{a,b}^1 S(X)_{a,b}^2&=S(X)_{a,b}^{1,2}+S(X)_{a,b}^{2,1}\\
+			S(X)_{a,b}^{1,2} S(X)_{a,b}^1&=S(X)_{a,b}^{1,1,2}+S(X)_{a,b}^{1,1,2}+S(X)_{a,b}^{1,2,1}=2S(X)_{a,b}^{1,1,2}+S(X)_{a,b}^{1,2,1},
+		\end{aligned}
+	\end{equation}
+	where for the first equality we have the following multi-indices $I=(1)$ and $J=(2)$. As a result of shuffle product we obtain  $(\textbf{1})\shuffle(\textit{2}) = \{(\textbf{1}, \textit{2}), (\textit{2}, \textbf{1})\}$. Accordingly, for the second equality we have $I=(1,2)$ and $J=(1)$. Thus we get following $(\textbf{1},\textbf{2})\shuffle(\textit{1}) = \{(\textit{1},\textbf{1},\textbf{2}), (\textbf{1}, \textit{1},\textbf{2}),(\textbf{1}, \textbf{2},\textit{1})\}$.
+	
+	This example shows that product of two terms of the signature can be expressed as a sum of higher order terms. More generally, this property of signautres shows that non-linear operations on low-level terms can be expressed by a linear combination of high-level signature terms. Obtaining linear combinations is one of the reasons why signatures might be used in machine learning as an efficient feature transformation.
+	
+	%Therefore, when we incorporate the	higher-level terms into the feature representation, we automatically include more nonlinear prior knowledge in our feature set. If the introduced nonlinearity is sufficient, we need only linear classifiers to distinguish the targets.
+\end{example}
+
+\subsection{Chen's identity}
+
+In this part we will define Chen's equality, which was first presented in \parencite{chen1958integration}. It will help us to describe the path and signature relationship from an algebraic perspective. First, however, let us define the algebra of formal power series, which will allow us to identify signatures in terms of formal power series.
+
+\begin{definition}
+	Let $e_1, . . . , e_d$ be $d$ formal indeterminates. The algebra of noncommutative \textit{formal power series} in $d$ indeterminates is the vector space of all series of the form
+	\begin{equation}
+		\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\lambda_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k},
+	\end{equation}
+where the second summation runs over all multi-indexes $(i_1, . . . , i_k)$, $i_1, . . . , i_k \in \{1, . . . , d\}$, and $\lambda_{i_1, . . . , i_k}$ are real numbers.
+\end{definition}
+
+By formal polynomial of power $k\geq1$ we mean a formal power series which has only a finite number $k$ of coefficients that are not zeros. Moreover, the terms $e_{i_1} . . . e_{i_k}$ denote monomials. The space of such formal power series is called the \textit{tensor algebra} of $\mathbb{R}^d$.
+
+%The term corresponding to k = 0 is simply just a real number λ_0.  We stress that the power series we consider are non-commutative; for example, the elements e_1e_2 and e_2e1 are distinct. 
+
+Let us define the tensor product $\otimes$ between monomials by
+
+\begin{equation}
+	e_{i_1} . . . e_{i_k}\otimes e_{j_1} . . . e_{j_m}=e_{i_1} . . . e_{i_k}e_{j_1} . . . e_{j_m}.
+\end{equation}
+
+Moreover, one can define addition and scalar product on the space of formal power series to obtain a vector space. Thus, let's define addition as
+\begin{equation}
+	\begin{aligned}
+	(\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\lambda_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k})+	(\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\mu_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k})&= \\	=\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}(\lambda_{i_1, . . . , i_k}+\mu_{i_1, . . . , i_k})e_{i_1}, . . . ,e_{i_k},
+	\end{aligned}
+\end{equation}
+ and scalar product as
+ \begin{equation}
+ 	c(\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\lambda_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k})= \\\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}c\lambda_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k},
+ \end{equation}
+
+%By defining addition and scalar product we can extend $\otimes$ product to all power series, extending it uniquely and linearly. Namely 
+In the following equation, let us show how $\otimes$ product extends to all formal power series
+\begin{equation}
+	\begin{aligned}
+			(\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}} \lambda_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k} )\otimes (\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\mu_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k})\\
+			=\lambda_0\mu_0 + \sum_{i=1}^{d}(\lambda_0\mu_i+\lambda_i\mu_0)e_i+\sum_{i,j=1}^{d}(\lambda_0\mu_{i,j}+\lambda_i\mu_j+\lambda_{i,j}\mu_0)e_i e_j+....
+	\end{aligned}
+\end{equation}
+
+%Hereby, from the space of formal power series we obtain an algebra.
+Thus, to obtain an algebra from the space of formal power series, we defined addition and scalar product to obtain a vector space structure and extended $\otimes$ product to all formal power series.
+
+Now we can rewrite signatures $S(X)_{a,b}$ using formal power series, since the index set of monomials coincides with the multi-indexes of signatures $(i_1, . . . , i_k)$, $i_1, . . . , i_k \in \{1, . . . , d\}$. Moreover, the coefficients of each monomials $e_{i_1} . . . e_{i_k}$ will be noted by $S(X)_{a,b}^{i_1, . . . , i_k}$. 
+\begin{equation}
+	S(X)_{a,b}=	\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}S(X)_{a,b}^{i_1, . . . , i_k}e_{i_1} . . . e_{i_k},
+\end{equation}
+
+where the first component of signature $S(X)_{a,b}^0=1$ (corresponding to $k = 0$).
+
+Let state the last definition, which is needed for the Chen’s identity, which will allow us to compute the signature of the concatenated paths using tensor multiplication of the signatures of the original paths.
+
+\begin{definition}
+	 For two paths $X:[a, b] \rightarrow \mathbb{R}^d$ and $Y: [b,c] \rightarrow \mathbb{R}^d $, we define their \textit{concatenation} as the path $X * Y : [a, c] \rightarrow \mathbb{R}^d$ for which $(X * Y )_t = X_t$ for $t\in [a, b]$ and $(X*Y )_t = X_b + (Y_t - Y_b)$ for $t\in[b,c]$
+\end{definition}
+
+\begin{theorem}[Chen's identity]
+	Assume $X:[a, b] \rightarrow \mathbb{R}^d$ and $Y: [b,c] \rightarrow \mathbb{R}^d $ are two paths.
+	Then 
+	\begin{equation}
+		S(X * Y)_{a,c} = S(X)_{a,b} \otimes S(Y )_{b,c}.
+	\end{equation}
+
+	
+\end{theorem}
+
+In other words, using Chen's equality, from the concatenation product "$*$" we can get the tensor product $\otimes$.
+\begin{remark}
+	Chen's identity allows us to compute the signatures of paths containing "streaming" information more efficiently. For example, if we have computed the signature of the path with information $X=(x_1, ... x_{100})$, but now we have additional information $X_{new}=(x_{101},...,x_{105})$. Using this identity, we can compute only the path signature of the new information $X_{new}$, and we do not need to recalculate the signature of the whole concatenated paths $X\ast X_{new}$.
+	%Уже ПЕРЕПИСАЛ: Suppose we have the signature of a stream of data x1, ... x1000. Subsequently some more data arrives, say x1001,..., x1007 . It is possible to calculate the signature of the whole stream of data x1,...,x1007  with just this information. It is not necessary to compute the signature of the whole path from the beginning!
+\end{remark}
+
+The following proof of the Chen's identity was taken from \parencite{lyons2007differential}.
+
+\begin{proof}
+	Set $Z=X*Y$ and $S(Z)=(1,Z_{a,c}^1,Z_{a,c}^2,...)$. Let choose $n\geq 1$ and compute $Z_{a,c}^n$. We obtain 
+	\begin{equation*}
+		\begin{aligned}
+			Z_{a,c}^n&=\idotsint_{a<t_1<...<t_n<c}\,dZ_{t_1}\otimes...\otimes\,dZ_{t_n}= 	\sum_{k=0}^n\idotsint_{a<t_1<...<t_k<b<t_{k+1}<...<t_n<c}\,dZ_{t_1}\otimes...\otimes\,dZ_{t_n}=\\=&\sum_{k=0}^n\idotsint_{a<t_1<...<t_k<b}\,dZ_{t_1}\otimes...\otimes\,dZ_{t_k}\otimes\idotsint_{b<t_{k+1}<...<t_n<c}\,dZ_{t_{k+1}}\otimes...\otimes\,dZ_{t_n} \\ =&\sum_{k=0}^n X_{a,b}^k\otimes Y_{b,c}^{n-k}.
+		\end{aligned}
+	\end{equation*}
+Hence, $S(Z)=S(X)\otimes S(Y)$.
+
+\end{proof}
+
+\subsection{Time-reversal}
+
+Next property of the signatures says, that under the tensor product $\otimes$ the signature $S(X)_{a,b}$ is inverse of the signature $S(\overleftarrow{X})_{a,b}$, where $X :[a, b] \rightarrow \mathbb{R}^d$ and $\overleftarrow{X}$ is given in a following definition. %That is, the signatures are inverse. 
+\begin{definition}
+	Assume we have a path $X :[a, b] \rightarrow \mathbb{R}^d$ , then by $\overleftarrow{X} : [a, b] \rightarrow \mathbb{R}^d$ define its time-reversal path, where $\overleftarrow{X_t} = X_{a+b-t}$ for all $t \in [a, b]$.
+\end{definition}
+
+\begin{proposition}[Chen, K.T. \cite{chen2001iterated}]
+	For a path $X :[a, b] \rightarrow \mathbb{R}^d$ , it holds that 
+	\begin{equation}
+		S(X)_{a,b}\otimes S(\overleftarrow{X})_{a,b}=1
+	\end{equation}
+\end{proposition}
+
+	Where $1$ is an identity element under the tensor product $\otimes$, i.e. it is a formal power series which has $\lambda_0=1$ and all other coefficients $\lambda_{i_1, . . . , i_k}=0$ for all $k\geq1$ and $i_1, . . . , i_k\in \{1,...,d\}$. This proposition shows us that the signature of time-reversal path is inverse to the original path signature, $S(X)^{-1}=S(\overleftarrow{X})$.
+\begin{proof}
+	The proof can be found in \parencite[][Proposition 1.4]{fermanian2021learning}.
+\end{proof}	 
+
+
+
+\subsection{Log signature}
+
+
+
+Here we will consider a definition of log signature, which can be described as a reduced form of the signature. In other words, log signatures describe the same  information of the path as signatures, but requires fewer levels of truncation. Thus, to obtain the log signatures, one must take the logarithm of the signature in the algebra of formal power series. 
+
+Let us consider the following power series
+\begin{equation}
+	x=\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\lambda_{i_1, . . . , i_k}e_{i_1}, . . . ,e_{i_k}
+\end{equation}
+where $\lambda_0>0$.
+
+Define the logarithm of the power series $x$ as following
+\begin{equation}
+	\log x=\log(\lambda_0)+\sum_{n\geq 1}\dfrac{(-1)^n}{n}(1-\frac{x}{\lambda_0})^{\otimes n},
+\end{equation}
+where $a^{\otimes n}=a\otimes ....\otimes a$,  $n$ times of $a$.
+
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{l|l|l|l|l}
+		& \textcolor[rgb]{0.2,0.2,0.2}{d=2} & \textcolor[rgb]{0.2,0.2,0.2}{d=3} & \textcolor[rgb]{0.2,0.2,0.2}{d=5} & \textcolor[rgb]{0.2,0.2,0.2}{d=7}  \\
+		\textcolor[rgb]{0.2,0.2,0.2}{m=2} & 6 \textbf{3}                      & 12    \textbf{6}                  & 30  \textbf{15}  				        & 56    \textbf{28}                             \\
+		\textcolor[rgb]{0.2,0.2,0.2}{m=4} & 30   \textbf{8}                             & 120       \textbf{32}                        & 780     \textbf{205}                          & 2800   \textbf{728}                            \\
+		\textcolor[rgb]{0.2,0.2,0.2}{m=5} & 62   \textbf{14}                             & 364  \textbf{80}                             & 3905     \textbf{829}                         & 19607        \textbf{4088}                     
+	\end{tabular}
+	\caption{The sizes of signatures and log signatures(bold)}
+	\label{LogSignatureSize}
+\end{table}
+%Переписать!!!!!!!
+%Observe that, in general, log x is a series with an infinite number of terms, however for every multi-index (i1, . . . , ik), the coefficient of ei1 . . . eik in log x depends only on the coefficients of x of the form λj1,...,jm with m ≤ k, of which there are only finitely many, so that log x is well-defined without the need to consider convergence of infinite series.
+
+\begin{definition}
+ For a path $X :[a, b] \rightarrow \mathbb{R}^d$ , the log signature of $X$ is defined as the formal power series $\log S(X)_{a,b}$.
+\end{definition}
+
+So to illustrate the difference in the signature and log signatures dimensionality, here is a Table \ref{LogSignatureSize}, where m is the truncation level and d is the path dimensions.
+
+
+Although in some calculations log signatures have advantages than just signatures to save computation time. In this paper we will only consider signature calculations, as it also has disadvantages, of which those who are interested can find out about in \parencite{chevyrev2016primer}.
+
+%Какие недостатки?? НАДО БУДЕТ ПОНЯТЬ ИЛИ УБРАТЬ ЭТОТ ТЕКСТ...
+
+
+
+%For another interpretation of the log-signature, allow us to define the term of a Lie-bracket
+%\begin{equation}
+%	[x,y]=x\otimes y - y\otimes x
+%\end{equation}
+%
+%Thus one can obtain, that log singature can be expressed as following
+%\begin{equation}
+%	\log S(X)_{a,b}=\sum_{i=1}^{d}S(X)_{a,b}^i e_i + \sum_{1\leq i \leq j \leq d}\frac{1}{2}(S(X)_{a,b}^{i,j}-S(X)_{a,b}^{j,i})[e_i,e_j]+...
+%\end{equation}
+%
+%
+%The following theorem by Chen \parencite{chen1957integration} is a generalisation of the Campbell-Baker-Hausdorff theorem. It shows that the log signature can always be represented by a power series consisting entirely of the Lie-polynomials.
+%	\begin{theorem} %\parencite[see][]{chevyrev2016primer}
+%Let $X :[a, b] \rightarrow \mathbb{R}^d$ be a path. Then there exist real numbers $\lambda_{i_1,...,i_k}$ such that
+%\begin{equation}
+%	\log S(X)_{a,b}=\sum_{k=0}^{\infty}\sum_{i_1, . . . , i_k \in \{1,...,d\}}\lambda_{i_1, . . . , i_k}[e_{i_1}[e_{i_2},...[e_{i_{k-1}},e_{i_k}]...]].
+%\end{equation}
+%	\end{theorem}
+%We notice that the coefficients $\lambda_{i_1, . . . , i_k}$ are in general not unique since the polynomials with Lie-brackets of the form $[e_{i_1}[e_{i_2},...[e_{i_{k-1}},e_{i_k}]...]]$ are not linearly independent (e.g., $[e_1, e_2] = -[e_2, e_1]$).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%------------------------------------------------------------------------------------
+%	                  THIRD CHAPTER
+%------------------------------------------------------------------------------------
+\chapter{Expected signatures and stochastic processes}
+%Rough path theory is a mathematical framework for studying stochastic processes that are not well-behaved in the sense of classical analysis. In particular, rough path theory allows one to define and study the signature of a stochastic process that is of bounded $p$-variation, where $1 < p < 2.$ In classical analysis, the signature of a stochastic process is defined using iterated integrals. However, if the process is of bounded $p$-variation with $p \geq 2,$ then the iterated integrals are not uniquely defined, and hence the signature is not well-defined. Lyons' observation was that even in the case where $p \geq 2,$ there is still a unique way to define the first $[p]$ iterated integrals of a path of finite $p$-variation. These first $[p]$ iterated integrals, along with the condition that they satisfy Chen's identity and possess finite $p$-variation, form the definition of a $p$-rough path. The notion of a $p$-rough path allows one to define the signature of a stochastic process of bounded $p$-variation with $p \geq 2,$ even though the iterated integrals are not well-defined in the classical sense. This allows one to apply the tools of rough path theory to study the behavior of such processes.
+
+
+
+
+In this chapter we will consider basic definitions such as group-like elements group, polynomial identities, expected signatures, discuss the space of the signatures and also look at representations of space $E$. Moreover we will discuss the relation between expected signatures and laws of stochastic processes. This chapter is mainly referring to Chevyrev and  Lyons \parencite{chevyrev2016characteristic}.
+%There is a connection between expected signatures and the laws of stochastic processes in noncommutative probability. Specifically, the expected signatures of a noncommutative probability space encode the algebraic properties of the random variables in the space, which in turn determine the possible laws of stochastic processes that can arise from the space. This allows us to use the expected signatures to study the behavior of stochastic processes in a noncommutative probability space.
+
+%Our discussion of the signature has so far been restricted to paths which are piecewise differentiable. This restriction was needed to ensure that the iterated integrals of the path existed as Riemann-Stieltjes integrals. More generally, one can define the iterated integrals of a path using the Young integral for any path of finite p-variation with 1 ≤ p < 2. The Young integral goes beyond the “classical” definition of the integral and is already able to cover a class of paths substantially more irregular than those of bounded variation.
+
+%!!!!!!!!!!!!!!!!!!!!!!!!1
+In the last chapter we discussed signatures of certain paths, namely piecewise differentiable paths. This restriction was assumed in order to guarantee the existence of iterated path integrals as Riemann-Stieltjes integrals. However, in this chapter we will also consider integrals in the Young sense, since we briefly look at the signatures of rough paths, which extend the theory of classical smooth paths to the functions that  may not be differentiable.
+
+
+%Remark 1.1. If X is of bounded p-variation with $1 < p < 2$, then the signature is still welldefined using the Young integral. If $p \geq 2$, the iterated integrals are no longer uniquely defined.This is where rough path theory comes into play to show their existence for various stochastic processes.
+
+
+%One of the key observations of T. Lyons in his introduction of rough paths in [19] was that if one defines the first $[p]$ iterated integrals of a path $X$ of finite p-variation, then there is indeed a unique way to obtain all the other iterated inteograls, and hence the signature of $X$. This notion of a path of finite p-variation, along with its first $[p]$ iterated integrals (which may be defined arbitrarily provided that they satisfy Chen’s identity and possess finite p-variation), is precisely the definition of a p-rough path.
+
+
+
+
+
+
+\section{Universal locally m-convex algebra}
+
+Consider topological vector spaces $V$ and $W$. We will assume that $V$ is a normed, locally convex space. Define by $\textbf{L}(V,W)$ the space of continuous linear maps between $V$ and $W$. Moreover, denote by $V’=\textbf{L}(V,\mathbb{R})$ and $\textbf{L}(V)=\textbf{L}(V,V)$. For a deeper understanding of topological vector spaces, algebras and their properties that we are using here, see Appendix \ref{anhang}.
+%Roughly speaking, the induced topology is such that a sequence of signatures converges if and only if the solution to (1.1) converges for every continuous linear map M : V 7→L(W)
+
+In this section, to construct a universal topological algebra $E(V)$ of a specific category (namely, locally $m$-convex), we will use the method which was introduced by Lyons and Chevyrev \parencite{chevyrev2016characteristic}. It was based on the structure that was presented in \parencite{cuntz1997excision} for cyclic cohomology and further studied in \parencite{valqui2001universal} for locally convex algebras with continuous multiplication and in \parencite{dineen2011complex} for commutative locally m-convex algebras.
+
+Let us look at a topological algebra $A$, a tensor space $T(V)=\oplus_{k\geq0}V^{\otimes k}$, where $V^{\otimes k}=V\otimes...\otimes V$ $(k$ times of topological vector space $V$), and the following statement: 
+\begin{equation} \label{state1}
+	\forall M\in \textbf{L}(V,A),\: the\: extension\: M:T(V)\rightarrow A\: is\: continuous
+\end{equation}
+
+
+Then let us equip $T(V)$ with such a topology that for all topological algebras $A$ the statement $(\ref{state1})$ holds. Furthermore, we will consider locally $m$-convex algebras in this work, the definition of such category of algebras is given in Appendix \ref{anhang}.
+
+ %\begin{remark}%[{{\cite[see][]{chevyrev2016characteristic}}}]
+ 	Assume that $V$ is a locally convex space. Let us define by $E_a(V) = T (V )$ the space that equipped with the initial topology such that ($\ref{state1}$) is fulfilled for all locally $m$-convex algebras $A$ (or in other words, all normed algebras $A$).Furthermore, let us denote the completion of space $E_a(V)$ by $E(V)$. Therefore, the set of continuous algebra homomorphisms $ Hom(E_a, A)$ is in bijection with the space of continuous linear maps $\textbf{L}(V, A)$.
+ %\end{remark}
+
+
+From now on, we will omit the reference to $V$ in the notations of the spaces $E$ and $E_a$, unless clarification is required. We also have the following result for the spaces.
+
+
+\begin{lemma}
+	The spaces $E_a$ and $E$ are $m$-convex algebra.
+\end{lemma}
+
+\begin{proof}
+	\parencite[see][p.14 and p.22]{mallios1986topological}
+\end{proof}
+
+
+\begin{remark} \parencite[see][]{chevyrev2016characteristic}
+	If we start to construct a universal topological algebra with $V$ as a general topological vector space, an easy 	verification shows that we arrive at the same space $E_a$ as when we equip $V$ with the finest locally convex topology coarser than its original.
+\end{remark} 
+
+Now we shall consider further definitions and corollaries that will help us to determine a representation of space $E$ and the radius of convergence of elements from $E$.
+
+Firstly, let define by $\Psi$ a family of seminorms on $V$ and $\xi$ be a continuous seminorm on $V$. Then we call $\Psi$  \textit{fundamental} family if for any  $\xi$ on $V$, there $\exists \gamma \in \Psi $ and $\varepsilon > 0$ such that $\gamma \geq \varepsilon \xi$. Moreover, lets use the following notation $\Psi^* = \{n\gamma |n \geq 1, \gamma \in \Psi\}$.
+
+
+Let $V$ and $W$ be locally convex spaces. Define \textit{projective} seminorm (or tensor product of seminorms) by $\gamma \otimes \xi$, where $\gamma$ and $\xi$ are seminorms on $V$ and $W$ respectively:
+\begin{equation}
+	\xi\otimes \gamma(x) := \inf\{\sum_{i=1}^{n}\xi(a_i)\gamma(b_i):x=\sum_{i=1}^{n}a_i \otimes b_i,\; a_i\in V, b_i \in W  \}
+\end{equation}
+
+ Let $V\otimes_\pi W$ denotes the \textit{projective tensor product} and $V\hat{\otimes} W$ denotes the completion of this projective tensor product. Denote the operator norm of a continuous linear map $M$  from $\textbf{L}(V, F)$ by $\gamma(M) = \sup_{\gamma(v)=1} \lVert Mv \rVert$, where $F$ is a normed space and $\gamma(v)$ is the seminorm of the vector $v$, $\lVert \cdot \rVert$ is the norm of a linear operator. In other words, $\gamma(M)$ is the maximum value of $\lVert Mv \rVert$ over all vectors $v$ in $V$ such that $\gamma(v) = 1$.
+ 
+
+By  $exp(\gamma) =\sum_{k\geq0}  \gamma ^{\otimes k}$ on $E_a$ we denote the \textit{projective extension } of a seminorm $\gamma$ on $V$, i.e it is a way of "extending" $\gamma$ to the projective tensor product $V^{\otimes_\pi k}$. Note, that it can be shown that the projective extension of $\gamma$ is a seminorm on $E_a$, moreover it is a submultiplicative seminorm.
+
+Let take a normed algebra $A$, such that $M \in \textbf{L}(V, A)$, and $\gamma$ be a seminorm on $V$ such that $\gamma(M)\leq 1$. With these assumptions we can conclude that the projective extension of $\gamma$ satisfies the inequality $exp(\gamma)(M_E)\leq 1$, where $M_E \in Hom(E_a, A$) is a linear map that extends $M$.
+Hence we get the following proposition and its corollaries from \parencite[][]{chevyrev2016characteristic}:
+
+\begin{proposition} \label{Prop2.3} %\parencite[see][]{chevyrev2016characteristic}
+	%Ссылку оставить
+	Let $\Psi$ be a family of seminorms on $V$. Then $\Psi$ is a fundamental
+	family of seminorms on $V$ if and only if $exp(\Psi^*)$ is a fundamental family of seminorms on $E$.
+\end{proposition}
+
+\begin{corollary} %\parencite[see][]{chevyrev2016characteristic}
+	\label{2.4}
+	The space $E$ is Hausdorff (resp. metrizable, separable) if and only if $V$ is Hausdorff (resp. metrizable, separable).
+\end{corollary}
+
+In the following corollary we associate $E$ with a subspace of $P(V):=\prod_{k\geq0}V^{\hat{\otimes}k} $. Let denote $x^k$ the projection of $x\in P$ on $V^{\hat{\otimes}k}$, such that $x$ can be written as an infinite sequence $(x^0 , x^1 , x^2 , ...)$. This notion of $E$ space will allow us to associate the radius of convergence with $E$ space.
+
+\begin{corollary}\label{cor2.5}
+	Let $\Psi$ be a fundamental family of semi-norms on $V$. Then $E = \{x \in P | \forall \gamma\in\Psi^* ,\sum_{k\geq0} \gamma^{\otimes k}(x^k)<\infty\}$.
+\end{corollary}
+Intuitively, this means that $E$ is the set of all elements of $P$ that satisfy a certain convergence condition with respect to the projective seminorms in $\Psi^*$.
+
+To get a better understanding of this, let's consider a case where $k=2$. Let denote $P^{\hat{\otimes}2}=\prod_{i,j\geq 0}V^{i,j}$, where $V^{i,j}\cong V^{\hat{\otimes}(i+j)}$. As a result from the corollary we have a following statement:
+\begin{equation}
+	E^{\hat{\otimes}2}=\{x \in P^{\hat{\otimes}2}| \forall\gamma\in \Psi^*, \sum_{i,j\geq 0}\gamma^{\otimes(i+j)}(x^{i,j})<\infty \}.
+\end{equation}
+
+%Написать про radius of convegrence R(x)...
+
+
+%When a series converges for all x, we say the series has an infinite radius of convergence, i.e., R=∞
+
+Assume $\rho^k:E\rightarrow V^{\hat{\otimes}k}$ to be the projection $\rho^k(x)=x^k$ and $\pi ^k: E \rightarrow \oplus^k_{j=0} V^{\hat{\otimes}j}$ the projection $\pi^k(x) = (x^0,..., x^k).$ Thus we get one more corollary.
+
+\begin{corollary}\label{cor2.6}
+	The operators $T^{(n)} := \sum_{k=0}^{n} \rho^k:E\rightarrow E $ converge uniformly on bounded sets to the identity operator on $E$.
+\end{corollary}
+
+Whenever the space $V$ is normed, we assume that $V^{\otimes k}$ is equipped with a projective norm (i.e. tensor product).
+
+Let take a look at the series 	
+\begin{equation}\label{3.4}
+	\sum_{k\geq0}\lVert x^k\rVert \lambda^k.
+\end{equation}
+
+Then we define a radius of convergence by $R(x)$ for $x\in P$ as the radius of convergence of the series \ref{3.4}. The radius of convergence is defined as the largest real number $R$ such that the series converges for all complex numbers $\lambda$ with magnitude less than $R$. Moreover, from  Corollary \ref{cor2.5}, as was shown in \parencite{chevyrev2016characteristic}, we have that the radius of convergence is infinite, $R(x) = \infty$, if and only if $x \in E$.
+
+Intuitively, the radius of convergence measures how fast the terms in the series decay as $k$ increases. A larger radius of convergence indicates that the terms in the series decay more slowly, which means that the series is more likely to converge for a wider range of values of $\lambda$. 
+Further, by using the convergence radius, we will be able to link the distribution of the random variable $X$ to the expected signature of that variable. This means that the radius of convergence can provide some information about the behavior of the series that defines the expected signature, and therefore about the distribution of $x$.
+
+
+
+
+\section{Group-like elements and expected signatures}
+
+
+In this section we assume that all measures are Borel. The space of probability measures on $S$ is denoted by $\mathcal{P}(S)$, where $S$ is a topological space endowed with the topology of weak convergence on $C_b(S,\mathbb{C})$. Note that we consider $T (V )$ as a Hopf algebra with coproduct $\Delta v = 1 \otimes v + v \otimes 1$, $\Delta : V \rightarrow T(V )^{\otimes 2}$, for all $v\in V$, which can be extended by universal property of $T(V)$ to a homomorphism $\Delta : T(V) \rightarrow T(V )^{\otimes 2}$. Moreover, from (\parencite{reutenauer1993free}, Proposition 1.10) in $T(V )$ we have \textit{antipode} $\alpha(v_1... v_k) = (-1)^k v_k... v_1$, $\alpha : T(V) \rightarrow T(V)$, for all $v_1 ... v_k \in V^{\otimes k}$. 
+
+Further on we will assume $V$ to be a locally convex space. Note, that from \parencite[][p.378]{mallios1986topological} we have that $E^{\hat{\otimes}2}$ is also locally $m$-convex algebra. From this fact and that $\Delta \in \textbf{L}(V, E^{\otimes_\pi2})$, due to the universal property of $E$ we get that extension $\Delta : E \rightarrow E^{\hat{\otimes}2}$ is continuous. Moreover, let us mention a few more results from \parencite{chevyrev2016characteristic} in the remark below.
+
+\begin{remark}
+	As a result of the findings above, we have that the antipode $\alpha$ can be extended to a continuous linear map $\alpha : E\rightarrow E$. This gives to the space $E$ an "almost" Hopf algebra structure. Here we have "almost" since under the coproduct $\Delta$ space $E$ mapped to the completion $E^{\hat{\otimes}2}$ and not to $E^{\otimes2}$ itself.
+\end{remark}
+
+Let now us define two groups, which we will use further. Denote by $U(V) = \{g \in E | \alpha(g) = g^{-1}\}$ the \textit{group of unitary elements} of $E$. Note, that $U$ is closed in $E$, since the map $\varphi : x \rightarrow (\alpha(x)x, x\alpha(x))$, $\varphi:E \rightarrow E\times E$ is continuous and $U = \varphi^{-1}\{(\alpha(x)x, x\alpha(x))\} =\varphi^{-1}\{(1, 1)\}$.
+Let us define the second group by $G(V ) = \{g \in E | \Delta(g) = g\otimes g, g \neq 0\}$ the \textit{group of group-like elements} of $E$. The group $G$ is also  closed in $E$ since $g^0 = 1$ for all $g \in G$ and $G = \psi^{-1}\{0\} \setminus \{0\}$ for the continuous map $\psi : x \rightarrow x \otimes x -\Delta(x)$ from $E$ into $E^{\hat{\otimes}2}$. Moreover, from the fact that multiplication and inversion in $E$ are continuous \parencite[see][p.5, p.52]{mallios1986topological} and if $G$ and $U$ are endowed with a subspace topology, then they are topological groups. Note, that we have an inclusion $G \subset U$.
+
+As it was mentioned before, signature of a one-dimensional path $X_t$ in $\mathbb{R}$ depends only on its increments $X_b-X_a$ and have a form $(1, X_t-X_0,(X_t-X_0)^2/2!, . . .)$. If we assume $X_t$ be a stochastic process, we can define expected signature in $\mathbb{R}$ case as expectations of its iterated integrals $(1, \mathbb{E}[X_t - X_0] , \mathbb{E} [X_t -X_0]^2/2! , . . .)$.
+
+
+Assume $F$ is a locally convex space, thus $F$-valued random variable $X$ is weakly integrable (in sense of Gelfand-Pettis), i.e. $\mathbb{E}[X]$ exists, if $f(X)$ is integrable for all $f\in F'$  and if there exists $\mathbb{E}[X]:=x\in F$ such that $\mathbb{E}[f (X)]=f(x)$. Moreover, denote by $\mu$ the probability measure associated with $X$ and its barycenter we denote by $\mu^*=\mathbb{E}[X]$.
+
+
+
+\begin{definition}
+	By \textit{expected signature} of $E$-valued random variable $X$ we denote the sequence 
+	\begin{equation}
+		\textbf{Sig}(X):=\mathbb{E}[S(X)]=(\mathbb{E}[X^0],\mathbb{E}[X^1],...)\in P=\prod_{k\geq0}V^{\hat{\otimes}k}
+	\end{equation}
+where $X^k$ is integrable for all $k\geq0$.
+\end{definition}
+
+
+%https://www.math.uni-bonn.de/people/thiele/workshop18/SS16Kopp_neu.pdf
+%Proposition 2. For two rough paths x, y if ExpSig(S(x)0,T ) = ExpSig(S(y)0,T ),and ExpSig(S(x)0,T ) decays fast enough, then S(x)0,T = S(y)0,T in distribution.
+
+Lets now define radius of convergence for series of integrable and norm-integrable variables. Assuming $V$ is normed space and taking a series 
+\begin{equation}\label{3.6}
+	\sum_{k\geq0}\mathbb{E}[\lVert X^k\rVert]\lambda^k,
+\end{equation}
+we define $r_1(X)$ as a radius of convergence of $(\ref{3.6})$, where $r_1(X)=0$ if $X^k$ is not norm-integrable for some $k \geq 0$.
+
+Likewise define a radius of convergence $r_2(x)$ of the series 
+\begin{equation}\label{3.7}
+	\sum_{k\geq0}\lVert\mathbb{E}[ X^k]\rVert\lambda^k,
+\end{equation}
+such that $r_2(X)=0$ if $X_k$ is not integrable for some $k \geq 0$.
+
+Note that for these radiuses of convergence we have following relations, namely $r_2(X) = R(\textbf{Sig}(X))$, i.e. $r_2$ is equal to the radius of convergence of the expected signature, and $r_1(X) \leq r_2(X)$. 
+
+Due to the definition, expected signature $\textbf{Sig}(X)$ exists when $E$-valued random variable $X$ is integrable. Moreover, let now consider a $G$-valued random variable and show the opposite. 
+We should keep in mind, though, that we defined $E$ as a subspace of $P$ previously.
+
+\begin{proposition} \label{prop3.2}
+	%Ссылку оставить
+	Let $X$ be a $G$-valued random variable. Then $X$ is weakly integrable if and only if $\textbf{Sig}(X)$ exists and lies in $E$. In this case $\mathbb{E}[X] = \textbf{Sig}(X)$.
+\end{proposition} 
+
+In other words, the proposition shows that the random variable $X \in G$ is integrable (as an $E$-valued random variable) in the case when the projections $X^k$ are (weakly) integrable and its normed expectation $\lVert\mathbb{E}[X^k]\rVert$ decays fast enough as $k\rightarrow\infty$. However, it is clear that this will not hold for an arbitrary E-valued random variable.
+
+We should note that $\forall f \in E'$ we have $f^{\otimes 2}\circ\Delta \in E'$. Moreover, for all $g\in G$ it holds that $f(g)^2=f^{\otimes 2}(\Delta g)$ and $\forall \mu \in \mathcal{P}(G)$ we have
+
+\begin{equation} \label{3.1}
+	\mu (\lvert f \rvert)\leq \sqrt{\mu (f^2)} =\sqrt{\mu(f^{\otimes 2}\circ\Delta)}.
+\end{equation}
+
+Thus one can observe that if $\mathbb{E}[X]$ exists and $\mu \in \mathcal{P}(G)$ then we have $\forall f\in E'$ the real random variable $f(X)$ has moments of all orders which are finite.
+
+
+To show Proposition \ref{prop3.2} we use proof from \parencite[][Prop. 3.2]{chevyrev2016characteristic}. The main idea of which is that assuming existence of $\mathbb{E}[X]$ for all $k\geq 0$, we approximate $\mathbb{E}[f(X)]$ by $\sum_{k=0}^{n}\mathbb{E}[f(X^k)]$. Moreover, using inequality (\ref{3.1}) and  grading of the coproduct $\Delta$, we apply dominated convergence to obtain $\mathbb{E}[f(X)]=\sum_{k=0}^{n}\mathbb{E}[f(X^k)]$.
+
+\begin{proof}\parencite[see][Prop. 3.2]{chevyrev2016characteristic}
+The "only if" direction is clear. Assume that $\textbf{Sig}(X)$ exists and $\textbf{Sig}(X) \in E$. As usual, let $\mu$ be the measure on $G$ associated to $X$. We are required to show that $f$ is $\mu$-integrable and that $\mu(f) = \langle f,\textbf{Sig}(X)\rangle$ for all $f \in E'$.
+
+We recall the projection $\rho ^k: E \rightarrow V^{\hat{\otimes} k}$ and canonically embed $(V^{\hat{\otimes} k})' $ into $E'$ by $f \rightarrow f \rho^k =: f^k$ for all $f \in (V^{\hat{\otimes} k})'$. By Corollary \ref{cor2.6}, $\sum_{k=0}^{n} f^k$ converges uniformly on bounded sets (and a fortiori pointwise) to $f$.
+
+Remark that for any $f \in E'$, $f \in (V^{\hat{\otimes} k})'$ if and only if $f = f^k$. Recall that $\Delta$ is a graded linear map from $T (V )$ to $T (V )^{\otimes 2}$. In particular, for all $f_1 \in (V^{\hat{\otimes} k})'$, $f_2 \in (V^{\hat{\otimes} m})'$ and $x \in T (V )$, it holds that
+
+\begin{equation} \label{3.2}
+	(f_1\otimes f_2)\Delta(x)=(f_1\otimes f_2)\Delta(x^{k+m}).
+\end{equation}
+
+As $T (V )$ is dense in $E$, $(\ref{3.2})$ holds for all $x \in E$, from which it follows that $(f_1\otimes f_2)\circ\Delta \in (V^{\hat{\otimes} k+m})'$.
+
+Let $f \in E'$ and note that $\mu(f^k) =\langle f^k,\mathbb{E} [X^k]\rangle $ for all $k \geq 0$. Since $\mu $ has support on $G$, it follows from $(\ref{3.1})$ and $(\ref{3.2})$ that
+
+\begin{equation} \label{3.3}
+	\mu \left( \sum_{k\geq 0} \lvert f^k\rvert\right) \leq\sum_{k\geq 0}\sqrt{\mu ((f^k)^{\otimes 2}\circ\Delta)}=\sum_{k\geq 0}\sqrt{(f^k)^{\otimes 2}\Delta \mathbb{E}[X^{2k}]}.
+\end{equation}
+
+Without loss of generality, we can assume that $\lvert f(1)\rvert \leq 1$. Let $\gamma$ be a semi-norm on $V $such that $exp(\gamma) \geq \lvert f\rvert$ and $\xi$ a semi-norm on $E$ such that $\xi \geq exp(\gamma)^{\otimes 2} \circ \Delta$. It follows that $exp(\gamma) \geq \lvert f^k \rvert$ for all $k \geq 0$, and thus $\xi \geq \lvert(f^k )^{\otimes2} \circ \Delta \rvert$ for all $k \geq 0$.
+
+Since $\textbf{Sig}(X) \in E$, it follows from Corollary \ref{cor2.5} that $\sum_{k\geq0}\sqrt{\xi (\mathbb{E}[X^k])}$ is finite, and hence $(\ref{3.3})$ is finite. By dominated convergence, we obtain
+
+\begin{equation}
+	\mu(f)=\lim_{n\rightarrow \infty}\mu(\sum_{k=0}^{n}f^k)
+\end{equation}
+
+It then follows that $\mu(f) = \langle f,\textbf{Sig}(X) \rangle$ as desired since
+\begin{equation}
+	\mu(\sum_{k=0}^{n}f^k)=\sum_{k=0}^{n}\langle f^k,\mathbb{E}[X^k] \rangle \rightarrow\langle f,\textbf{Sig}(X) \rangle.
+\end{equation}
+
+\end{proof}
+
+
+\begin{corollary}\parencite[see][]{chevyrev2016characteristic}\label{Cor3.3}	
+	Assume we have a $G$-valued random variable $X$ and a normed space $V$. Then we have that $\mathbb{E}[X] \in E$ exists if and only if radius of convegence $r_2(X) = \infty$, i.e., $\textbf{Sig}(X)$ exists and has an infinite radius of convergence. In this case $\mathbb{E}[X] = \textbf{Sig}(X)$.
+\end{corollary}
+%Нписать что это Corllary даёт
+
+Let us state another proposition in which we show a partially opposite relation of the radius of convergence  $r_1$ and $r_2$ when $V=\mathbb{R}^d$ and $X$ is an $G$-valued random variable. But assume first that $V$ is a normed space. Furthermore, we note that for all $v\in V$ we have that $\|\Delta v\|=2\|v \|$. As a result we have $\|\Delta|_{V^{\hat{\otimes}k}}\|=2^k$ and following equation
+
+\begin{equation}\label{2.2.4}
+	\|\Delta x^k\|\leq 2^k \|x^k\| \text{ for all } x \in E.
+\end{equation}
+
+
+Let we have $V=\mathbb{R}^d$ and define $e_I=e_{i_1}...e_{i_k} \in V^{\otimes k}$ for an alphabet $\{1,...,d\}$ and a word $I=i_1...i_k$, where $e_{i_1},...,e_{i_k}$ is a standard basis of $V$.  Moreover, let us equip the space $V$ with the $l^1$ norm from this basis. Hence, from the grading of $\Delta$ we have
+
+\begin{equation}
+	\begin{aligned}
+	\mathbb{E}[\|X^k \|^2]=\mathbb{E}[(\sum_{|I|=k}|\langle e_I,X^k\rangle |)^2]&\leq d^k \mathbb{E}[(\sum_{|I|=k}\langle e_I,X^k\rangle ^2)]\\&=d^k \sum_{|I|=k} e_I^{\otimes 2} \Delta \mathbb{E}[X^{2k}]\\ &\leq d^k\|\Delta \mathbb{E}[X^{2k} ]\|,
+	\end{aligned}
+\end{equation}
+
+note that for the last inequality we used the argument that $(e_I \otimes e_J)_{|I|=|J|=k}$ is an $l^1$ basis for $V^{\otimes 2k}$. As a consequence of  equation (\ref{2.2.4}) we have the following proposition.
+
+\begin{proposition}\label{prop2.2.4}
+	Let $X$ be a $G(\mathbb{R}^d)$-valued random variable. It follows that 
+	\begin{equation}
+			\mathbb{E}[\|X^k \|^2]\leq d^k 2^{2k}\|\mathbb{E}[X^{2k}] \|.
+	\end{equation}
+	In particular, $r_1(X)\leq r_2(X)\leq 2 \sqrt{d}r_1(X)$.
+\end{proposition}
+
+For the proof of the proposition look at \parencite[][Chapter 3]{chevyrev2016characteristic}. This proposition shows how the convergence radiuses $r_1$ and $r_2$ are related to each other. Moreover, we further state a theorem in which we show the conditions for the radius $r_1$ to be infinite for an $E$-valued variable.
+
+
+\section{Representations of space E}
+
+In this section we will discuss the representations and separability of space $E$. It is based on the theory of Chevyrev and Lyons from \parencite{chevyrev2016characteristic}.
+Lets us remind that for a Hopf algebra, we can define dual of representations via  the antipode, namely $M^*(x):=M(\alpha(x))^*$. Moreover, one may determine the tensor product using the coproduct, $M_1\otimes M_2(x):=(M_1\otimes M_2)\Delta(x)$. Let consider the representations of the space $E$ which are continuous and take them over Hilbert spaces with finite dimension. Then we should note that such represenations are closed under duals and tensor products since coproduct $\Delta$ and antipode $\alpha$ are continuous.
+
+\begin{definition}\parencite[see][]{chevyrev2016characteristic}
+	Denote by $\mathcal{A}(V)$ the family of finite dimensional representations	of $E$ which arise from extensions of all linear maps $M \in \textbf{L}(V, \mathfrak{u}(H_M ))$, where $H_M$ ranges over all finite dimensional Hilbert spaces and $\mathfrak{u}(H_M )$ denotes the Lie algebra of the anti-Hermitian operators on $H_M$ . Denote by $\mathcal{C}(V)$ the set of corresponding matrix coefficients, i.e., the set of linear functionals $M_{u,v} \in \textbf{L}(E, \mathbb{C})$, where $M_{u,v}(x) =\langle M(x)u,v\rangle$ for all $M \in \mathcal{A}$ and $u, v \in H_M$
+\end{definition}
+
+One of the key features of the family $\mathcal{A}(V)$ is that it is closed when taking the duals of representations and tensor products. One can also note that the family $\mathcal{A}(V)$ contains representations of $E$ such that they are of finite dimension and for all $x\in E$ we have $M(\alpha x)=M(x)^*$, in other words, it is an involutory family. Hence, it implies that every representation $M \in \mathcal{A}$ is an unitary representation of the group $U$, therefore of the group $G$.
+
+We note that for any representations $M_1$, $M_2$ of the space $E$ the tensor product that we mentioned before, $M_1 \otimes M_2$, and tensor product of representations from group theory agree on the group of group-like elements $G$. Furthermore, for $M \in \mathcal{A} $ one may define on a group $U$ the dual represenation $M^*$ as the conjugate representation of $M$ on $U$. Hence, we have that $\mathcal{C}|_G$ forms an involutive subalgebra ($\ast$-subalgebra) of $C_b(G,\mathbb{C})$.
+
+
+Define by $S$ a topological space and by $F$ a $\ast$-subalgebra of $C_b(G,\mathbb{C})$, which is separating. Let $\mu$ and $\nu$ be tight Borel measures on $S$. Thus, from the Stone-Weierstrass theorem we have that $\mu = \nu$ if and only if $\mu(f) = \nu(f)$ for all $f \in F$ \parencite[see][Exercise 7.14 .79]{bogachev2007measure}. We now may state the following lemma.
+
+\begin{lemma}\parencite[see the proof in][]{chevyrev2016characteristic}
+	\label{lemma4.2}
+	Assume that the family of represenations $\mathcal{A}$ separates the points of group $G$. Then for tight Borel measures $\mu$, $\nu$ on $G$, $\mu = \nu$ if and only if $\mu(f) = \nu(f)$ for all $f \in \mathcal{C}$, or equivalently, $\mu(M) = \nu(M)$ for all representations $M \in \mathcal{A}$.
+\end{lemma}
+
+Further we will consider the requirements under which algebra homomorphisms of $E$ separate points in general case. However, in Theorem \ref{thm4.8} we will have a look at the case when $V=\mathbb{R}^d$ and show that $\mathcal{A}(\mathbb{R}^d)$ separates the points in $E(\mathbb{R}^d)$.
+
+\subsection{Separation of points}
+
+
+
+Assume $A$ be a Banach algebra and $M$ be a continous liner map from $\textbf{L}(V, A)$. Denote the algebra homomorphism on $E$ by $(\lambda M)$ which is induced by $\lambda M\in \textbf{L}(V, A)$, where $\lambda$ might be complex if we consider algebra $A$ over $\mathbb{C}$. In case $\lambda \in \mathbb{R}$, lets us denote by $\delta_\lambda :E \rightarrow E$ a dilation operator $\delta_\lambda(x^0,x^1,...)=(\lambda^0 x^0,\lambda^1 x^1,...)$. Moreover, we can note that ($\lambda M)=M\delta_\lambda$ for $\lambda \in \mathbb{R}$.
+
+\begin{lemma}\label{lemmma4.3}
+	Let $V$ be a locally convex space, $A$ be a Banach algebra and $M \in \textbf{L}(V, A)$. Let $x \in E$ such that $M(x^k) \neq 0$ for some $k \geq 0$. Then there exists $\epsilon > 0$ sufficiently	small such that $(\epsilon M)(x) \neq 0$.
+\end{lemma}
+
+\begin{proof}\parencite[see][]{chevyrev2016characteristic}.
+	Since $\lVert M(x)\rVert$ is a seminorm on $E$, $\sum_{k \geq 0}\lVert M(x^k)\rVert$ converges by Corollary \ref{cor2.5}, from which the conclusion follows.
+\end{proof}
+
+Let's now have a look at the polynomial identity, more details of which can be found in \parencite{giambruno2005polynomial}. Assume $A$ be an algebra over a field $\mathbb{F}$. By polynomial identity over the field $\mathbb{F}$ on a subset $Q \subseteq A$ we mean the polynomial in non-commuting indeterminates $x_1,...x_k$, such that all coefficients are in $\mathbb{F}$. Moreover, the coefficients are not all equal to zero and the polynomial evaluates to zero when the indeterminates are substituted with variables $x_1, . . . , x_k \in Q$.
+
+
+Assume now that $V$ be a vector space and $\Theta$ be its Hamel basis. %See the definition of its in Appendix. 
+ Define the Hamel basis for $V^{\otimes k}$ by the set of pure tensors $\Theta^{\otimes k}=\{v_1 . . . v_k | v_j \in \Theta, 1 \leq j \leq k\}$. Thereby for every element $x$ from $V^{\otimes k}$ define $\Theta_x$ as a finite set of vectors in $\Theta$, such that it is included in the representations of vector $x$ in the Hamel basis $\Theta^{\otimes k}$. Denote by $f_x^\Theta$ the canonical formal non-commuting polynomial in indeterminates $\Theta_x$, which is related to vector $x$. Using the fact that the set $\Theta_x$ is finite, we can state the following lemma from \parencite{chevyrev2016characteristic}, which follows from the Hahn-Banach theorem.
+
+\begin{lemma}\label{lemmma4.4}
+	Let $V$ be a locally convex space with Hamel basis $\Theta$, $A$ an algebra which is a topological vector space, and $Q \subseteq A$ a subset. Let $k \geq 0$ and $x \in V^{\otimes k} $.The following two assertions are equivalent.
+	\begin{enumerate}
+	\item [(i)] $f_x^\Theta$	is not a polynomial identity over $\mathbb{R}$ on $Q$
+	\item [(ii)]	There exists a continuous linear map $M : V \mapsto span(Q)$ such that $M(x)$ is non-zero and $M(v)$ is in $Q$ for all $v \in \Theta_x$.
+	\end{enumerate}
+\end{lemma}
+
+Note, that if one does not wonder about topological considerations, a similar assertion would hold if we replace $\mathbb{R}$ by a field $\mathbb{F}$, $V$ by a vector space over $\mathbb{V}$, $A$ by an $\mathbb{F}$-algebra and in the previous lemma drop the continuity assumption in (ii).
+
+
+
+
+
+\subsection{Polynomial identities}
+
+In this section we consider polynomial identities in unitary Lie algebras in order to understand how representations of the family $\mathcal{A}(\mathbb{R}^d)$ separate points of space $E(\mathbb{R}^d)$. For this we use the results of Lemmas \ref{lemmma4.3} and \ref{lemmma4.4}.
+
+
+
+%Почему в М_2m мы имеем 2m? Смотри giambruno1995minimal Introduction
+%"the canonical sympletic involution, denoted * = s; recall that s is defined only in case n = 2m is even and it is given by the rule: if A E M,(F), write A = (i g) where B, C, Dl E E M,(F) and set 
+
+%First kind involution: giambruno1995minimal
+%Let F be a field of characteristic different from 2 and R an F-algebra with involution *. We shall consider only involutions of the first kind on R so that, (aa)* = aa* for all a E F, a E R. 
+
+Let us denote a symplectic involution on $M_{2m}(\mathbb{C})$ by $\cdot^s$, where $m\geq1$ is an integer, which also represents an involution of the first kind, namely $(\alpha a)^*=\alpha a^*$ for all $\alpha \in \mathbb{C}$ and $a \in M$, one can see in more details in \parencite{giambruno1995minimal}. Recall the Lie algebra associated with compact symplectic group $Sp(m)$ and denote it by $\mathfrak{sp}(m) = \{u \in \mathfrak{u}(\mathbb{C}^{2m}) | u^s + u = 0\}$. Consider a general linear Lie algebra $\mathfrak{gl}(\mathbb{C}^{2m})$ and closely related complex subalgebra $\mathfrak{sp}(m,\mathbb{C}) = \{u \in M_{2m}(\mathbb{C}) | u^s + u = 0\}$, which is also a complexification of $\mathfrak{sp}(m)$. Further on, we will be concerned about Lie algebras $\mathfrak{sp}(m)$ and $\mathfrak{sp}(m,\mathbb{C})$.
+
+ Based on Giambruno and Valenti \parencite{giambruno1995minimal} results and remark that $\mathfrak{sp}(m,\mathbb{C}) = \{  u-u^s | u \in M_{2m}(\mathbb{C})\}$, we can state the following theorem.\
+ 
+ \begin{theorem}[\protect{\cite[][Theorem 6]{giambruno1995minimal}}]
+ 	\label{thm4.6}
+ 	Let $m\geq 2$ and $f(x_1, . . . , x_k)$ a polynomial identity
+ 	over $\mathbb{C}$ on $\mathfrak{sp}(m, \mathbb{C}) \subset M_{2m}(\mathbb{C})$. Then $deg(f) > 3m$.
+ \end{theorem}
+\begin{proof}
+	\parencite[see][]{giambruno1995minimal}
+\end{proof}
+%Могу переписать, если вдруг надо будет....
+
+The following lemma we can formulate by generalising Theorem $1.3.2$ of \parencite{giambruno2005polynomial}, the proof of which one finds in \parencite{chevyrev2016characteristic}.
+
+
+\begin{lemma}\label{lemmma4.7}
+	Let $\mathbb{F}$ be an infinite field, $A$ be an algebra over the field $\mathbb{F}$ and $Q$ a linear subspace of $A$. If $f$ is a polynomial identity over $\mathbb{F}$ on $Q$, then every multi-homogeneous component of $f$ is a polynomial identity over $\mathbb{F}$ on $Q$.
+\end{lemma}
+
+Note that if we have a multi-homogeneous polynomial identity over $\mathbb{C}$ and especially over $\mathbb{R}$ on $\mathfrak{sp}(m) \in M_{2m}(\mathbb{C})$, then it is also a polynomial identity over $\mathbb{C}$ on $sp(\mathfrak{m}, \mathbb{C})$. Hence, using the results of the previous Theorem \ref{thm4.6} and Lemma \ref{lemmma4.7} we obtain that any polynomial identity $f$ over $\mathbb{R}$ on $\mathfrak{sp}(m)$ for $m\geq2$ has degree of each of its multi-homogeneous components greater than or equal to $3m$. Then, using the conclusions from Lemmas \ref{lemmma4.3} and \ref{lemmma4.4}, we can formulate the following theorem.
+
+\begin{theorem}\label{thm4.8}\parencite[see proof in][]{chevyrev2016characteristic}
+	Let $x \in E(\mathbb{R}^d)$ such that $x^k \neq 0$ for some $k \geq 0$. Then for any integer $m \geq \max\{2, k/3\}$ there exists $M \in \textbf{L}(\mathbb{R}^d, \mathfrak{sp}(m))$ such that $M(x) \neq0$. In 	particular, $\mathcal{A}(\mathbb{R}^d)$ separates the points of $E(\mathbb{R }^d)$.
+\end{theorem}
+
+%Remark 4.9.
+In the previous theorem we were required to use a finite dimensional space $V=\mathbb{R}^d$ in order to have the following equality $V^{\otimes k}=V^{\hat{\otimes} k}$. The result of this theorem could be extended to an infinite dimensional space $V$ if we could find an alternative to Lemma \ref{lemmma4.4} for $x\in V^{\hat{\otimes} k}$, or an equivalent result of Theorem \ref{thm4.6} corresponding to a series of polynomials with finite degree, but with an unbounded number of indeterminants.
+
+\begin{corollary}
+	The group $U(\mathbb{R}^d)$ is maximally almost periodic.
+\end{corollary}
+
+In a following remark we show that topological groups $G(\mathbb{R}^d)$ and $U(\mathbb{R}^d))$ are not locally compact for $d\geq 2$.
+\begin{remark}
+	Assume we have a field $V=\mathbb{R}^d$ and $L(V)$ be the smallest Lie algebra in $T(V)$ which contains $V$. With Theorem 1.4 from \parencite{reutenauer1993free} we obtain that for any continuous linear map $l \in L(V)$ we have a coproduct in the following form $\Delta(l)=1\otimes l+ l\otimes 1$, which leads by computation to $exp(l)\in G$.
+\end{remark}
+
+Let us take two linear independent vectors $u$ and $v$ from $V$ and denote their span by $W = span (u, v)$. Note that for $k\geq 1$ the space $L(W)$ has an element in $W^{\otimes k}$ which is nonzero.
+%Дописать?
+Recall Proposition \ref{Prop2.3} about the fundamentality of the family of seminorms $\Psi$, then we can construct a sequence $(l_n)_{n\geq 1} \in B $ for any neighborhood of zero $B$ of $L(W)$ such that $\gamma(exp(l_i)-exp(l_j))\geq 1$ for all $i\neq j$ and some seminorms on $E$. Moreover, from the theorem \parencite[][Theorem 3]{arens1946space} we have that $exp:L(W)\rightarrow G$ is continuous, as a result of which we obtain that there is no such a neighborhood of the identity in $G$ that would lie in a sequentially compact set.
+
+Together with Corollary \ref{2.4} we have that, in case the space $V$ is metrizable and separable, $E$ is a Polish space, moreover $G$ is also Polish, as $G \subset E$ and it is closed. From Lemma \ref{lemma4.2} and Theorem \ref{thm4.8} we get the following.
+
+\begin{corollary} \label{Cor4.12}
+	For Borel probability measures $\mu$ and $\nu$ on $G(\mathbb{R}^d)$, it holds that $\mu = \nu$ if and only if $\mu(f) = \nu(f)$ for all $f \in \mathcal{C}(\mathbb{R}^d)$, or equivalently, $\mu(M) = \nu(M)$	for all $M \in \mathcal{A}(\mathbb{R}^d)$.
+\end{corollary}
+
+As a result in this section we discussed representations of space $E(V)$. One of the essential results was Theorem \ref{thm4.8}. There we have explicitly characterised the set of representations $E(\mathbb{R}^d)$ that preserves unitary elements and separates points. Moreover, from the last corollary we can conclude that a characteristic function for $G(\mathbb{R}^d)$-valued random variable can be defined, but that is not the focus of this work. 
+
+
+%For a Borel probability measure µ on G(R d ), with associated random variable X, we are thus able to dene its characteristic function (or Fourier transform) by φX = µb := µ|A, which uniquely characterizes µ
+
+
+
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%\section{Signatures of rough paths and multiplicative functionals }
+%
+%In this section we discuss the space $E$ in the terms of the \textit{rough path} theory. Note that one of the conncection which we will use is that the signatures of geometric rough path on $\mathbb{R}^d$ lies in $G(\mathbb{R}^d)$.
+%
+%Firstly, we define the \textit{rough path} using Lyons terminology from \parencite{lyons2002system} and \parencite{lyons2007differential}.
+%
+%Note that to denote simplex we use the notation $\Delta_{[0,T]}=\{(s,t): 0\leq s\leq t\leq T \}$. Let denote truncated tensor algebra by $T^n(V) =\oplus_{0\leq k\leq n} V^{\hat{\otimes}k}$, where $V^{\otimes 0}=\mathbb{R}$. %$V^{\hat{\otimes}k}=V\otimes...\otimes V$ $(k$ times of $V$) and 
+%
+%Define a \textit{control function} as a continuous non-negative function $\omega$ on simplex $\Delta_{[0,T]}=\{(s,t): 0\leq s\leq t\leq T \}$ which is super-additive, such that $\omega(s, t) + \omega(t, u) \leq \omega(s, u), \: \forall s \leq t \leq u \in I$ and $\omega(t, t)=0$ for all $t \in I$.
+%%что такое I?:::::::::
+%\begin{definition}
+%	A continuous map $X$ from the simplex $\Delta_{[0,T]}$ into a truncated tensor algebra $T^{(n)}(V)$, and written as	
+%	\begin{equation}
+%		X_{s,t}=(X_{s,t}^0, X_{s,t}^1,..., X_{s,t}^n), \: with \: X_{s,t}^k\in V^{\otimes k}, \: for\: any \:(s,t)\in \Delta_{[0,T]},
+%		\end{equation}
+%	is called a \textit{multiplicative functional} of degree $n$ $(n\in \mathbb{N},n\geq1)$ if $X_{s,t}^0\equiv 1$ $($for all $(s,t) \in \Delta_{[0,T]})$ and
+%	\begin{equation}
+%		X_{s,t}\otimes X_{t,u}=X_{s,u},\: \forall (s,t),(t,u) \in \Delta_{[0,T]}, 
+%	\end{equation}
+%where the tensor product $\otimes$ is taken in $T^{(n)}(V)$.
+%\end{definition}
+%
+%
+%\begin{definition}
+%	We determine that a path $X:\Delta \rightarrow T^{(n)}(V)$ has a finite $p$-variation if 
+%	\begin{equation}
+%		\lvert X_{s,t}^i \rvert \leq \omega(s,t)^{i/p}, \: \forall i=1,...,n, \: \forall (s,t)\in \Delta_{[0,T]},
+%	\end{equation} 
+%for some control function $\omega$.
+%\end{definition}
+%\begin{definition}
+%	%Ссылку оставить
+%	A multiplicative functionals with finite $p$-variation in $ T^{([p])}(V)$ is called a \textit{rough path}(of roughness $p$). We say that a rough path $X$ in $T^{([p])}(V)$ is controlled by $\omega$ if 
+%	\begin{equation}
+%		\lvert X_{s,t}^i \rvert \leq \omega(s,t)^{i/p}, \: \forall i=1,...,[p], \: \forall (s,t)\in \Delta,
+%	\end{equation}
+%\end{definition}
+%
+%Moreover, by $\Omega_p (V)$ we denote the set of all rough path in $T^{([p])}(V)$ with roughness $p$. That is the multiplicative functionals $X:\Delta_{[0,T]} \rightarrow T^{[p]} $ with control $\omega$, such that 
+%
+%\begin{itemize}
+%	%\item $x_{(s,t)}^0=1$ and $x_{(s,t)}x_{(t,u)}=x_{(s,u)}$ for all $0\leq s\leq t \leq u \leq T$, and
+%	
+%	\item  for all $0\leq s\leq t \leq u \leq T$ we have
+%	\begin{equation} \label{cond(a))}
+%		X_{(s,t)}^0=1 \: and \: X_{(s,t)}X_{(t,u)}=X_{(s,u)}
+%	\end{equation}
+%and
+%	\item for some control $\omega$ one has
+%	\begin{equation} \label{5.1}
+%		\sup_{0\leq k \leq [p]} ((k/p)!\beta_p \lVert X_{(s,t)}^k \rVert)^{p/k}\leq \omega (s,t), \: \forall (s,t)\in \Delta_{[0,T]},
+%	\end{equation}
+%where $\beta_p$ is constant that only depends on $p$.
+%\end{itemize}
+%
+%
+%%In the other direction, let X be a multiplicative functional of degree n ≥ 1 with finite p-variation for some p < 2. Let x be the path in V underlying π1 ◦ X. Then the argument earlier shows that X coincides with the signature of x truncated at level n. It is now very easy to extend X to a multiplicative functional of arbitrarily high degree, by adding higher order iterated integrals of x. Moreover, we know that this extension is continuous with respect to X, because the iterated integrals depend continuously on x.
+%% The theorem which we are now going to prove, which is the first fundamental result in the theory of rough paths, generalises the remarks made earlier and states that every multiplicative functional of degree n and with finite p-variation can be extended in a unique way to a multiplicative functional of arbitrary high degree, provided n is greater than the integer part of p. Furthermore, the extension map thus defined is continuous in the p-variation metric.
+%%Описание ТЕОРЕМЫ следующей
+%
+%
+%
+%
+%Assume for some control function $\omega$ the map $X\in \Omega_p$ satisfaies condition $(\ref{5.1})$. Thus using following theorem we obtain one of the essential results, i.e. there $\exists$ a multiplicative functional $X_n:\Delta_{[0,T]}\rightarrow T^n$ %$($or using signature terms $S_n(X):\Delta_{[0,T]}\rightarrow T^n)$
+% such that conditions $(\ref{cond(a))})$ and $(\ref{5.1})$ hold and $[p]$ can be substituted by $n$ in $(\ref{5.1})$. Moreover, the theorem shows, that for every multiplicative functional of degree $n$ and finite $p$-variation we have an unique extension to a multiplicative functional of arbitraty high degree.
+%
+%
+%
+%\begin{theorem}
+%	%Ссылку оставить
+%	\textbf{(Extension Theorem)}\parencite[see][Theorem 3.7]{lyons2007differential}
+%	Let $p\geq 1$, and let $X:\Delta \rightarrow T^{(n)}(V)$ be a multiplicative functional with finite $p$-variation so that 
+%	\begin{equation}
+%			\lvert X_{s,t}^i \rvert \leq \omega(s,t)^{i/p}, \: \forall i=1,...,n, \: and \: \forall (s,t)\in \Delta,
+%	\end{equation}
+%for some control $\omega$. If $n \geq [p]$, then there is a uniquely extension $x$ to be a multiplicative functional in $T^{(\infty)}(V)$ which possesses finite $p$-variation. More precisely, for any $m\geq  [p]+1$, there is a unique continuous function $X^m:\Delta \rightarrow V^{\otimes m}$ such that
+%\begin{equation}
+%	X=(1,X^{1},...,X^{[p]},...,X^{m},...)
+%\end{equation}
+%is a multiplicative functional in $T^{(\infty)}(V)$ with finite $p$-variation. Moreover, if $\omega$ is a control such that 
+%\begin{equation} \label{3.18}
+%\lvert X_{s,t}^i \rvert \leq \dfrac{\omega(s,t)^{i/p}}{\beta(i/p)!}, \: \forall i=1,...,[p] \: and \: \forall (s,t)\in \Delta,
+%\end{equation}
+%where $\beta$ is a constant such that
+%\begin{equation}
+%	\beta \geq p^2 (1+\sum_{r=3}^{\infty}(\dfrac{2}{r-2})^{([p]+1)/p}),
+%\end{equation}
+%then $(\ref{3.18})$ remains true for all $i>[p]$.
+%\end{theorem}
+%\begin{proof}
+%\parencite[see][Theorem 3.1.2]{lyons2002system}
+%\end{proof}
+%
+%
+%From the factorial decay in $(\ref{5.1})$ we can conclude that a map $S(X):\Delta_{[0,T]} \rightarrow P=\prod_{k\geq 0}V^{\hat{\otimes}}k$ takes values in the space $E$ for any $p \geq 1$ (see Corollary \ref{cor2.5}).
+%
+%Let now define the extension of the space of rough paths $\Omega_p$. 
+%\begin{definition}
+%	The space $\Omega E_p$ is defined as a set of maps $X : \Delta_{[0,T]} \rightarrow E$ which satisfy $(\ref{cond(a))})$ and $(\ref{5.1})$ with $\sup_{0\leq k \leq [p]}$ replaced by $\sup_{0\leq k}$ in ($\ref{5.1}$).
+%\end{definition}
+%
+%
+%Thus we have that the map $S:\Omega_p \rightarrow \Omega E_p$ is bijective, such that the $[p]$-th level truncation $(X_{s,t}^0, X_{s,t}^1, . . .) \rightarrow (X_{s,t}^0, X_{s,t}^1, . . . , X_{s,t}^{[p]})$ provide the inverse.
+%
+%Further by $S(X)_{0,T} \in E$ we will denote the signature of a rough path $X \in \Omega_p$. Note that for $1\leq p <2$, $S(x)_{0,T} $ is a sequence of iterated integrals (in terms of Young theory) of the path $X_{0,.}:[0,T]\rightarrow V$.
+%
+%
+%Moreover, the lift $S$ has the natural property of continuity with respect to the $p$-variation topology on $\Omega_p$. Let assume $X, (X(n))_{n\geq 1}\in \Omega_{p}$, a control $\omega$ and a sequence of positive reals $(a_n)_{n\geq 1}$ with $a_n\geq 1$, and consider the following statement
+%
+%\begin{equation}\label{5.3}
+%\begin{aligned}
+%	\omega \text{ control the } p\text{-variation of }X \text{ and }X(n) \text{ for all } n\geq 1, \text{ and } \\
+%	\sup_{0\leq k\leq[p]} ((k/p)! \beta_p a_n\lVert X(n)_{s,t}^k- X_{s,t}^k\rVert)^{p/k} \leq \omega(s,t), \; \forall(s,t)\in \Delta_{[0,T]}.
+%\end{aligned}
+%\end{equation}
+%
+%Thus we say that $X(n)$ converges to $X$ in the $p$-variation topology of $\Omega$, if inequality (\ref{5.3}) is satisfied for some controle $\omega$ and a sequence $(a_n)_{n\geq 1}$ such that $a_n\geq 1$ and $a_n \rightarrow \infty$. 
+%
+%Furthermore, we have the following proposition, which is a consequence of the continuity of the lifts $S_n$ for $n\geq [p]$ (\parencite[see][Theorem 3.1.3]{lyons2002system}).
+%
+%
+%\begin{proposition} %\parencite[see][]{chevyrev2016characteristic}
+%	%Ссылку оставить(Chevyrev and Lyons)
+%	If $X,(X(n))_{n\geq 1} \in \Omega_p$ satisfy (\ref{5.3}) for some $\omega$ and $(a_n)_{n\geq 1}$ with $a_n\geq1$, then $S(X),(S(X(n)))_{n\geq 1} \in \Omega E_p$ satisfy (\ref{5.3}) for the same control $\omega$ and sequence $(a_n)_{n\geq 1}$.
+%	In particular, $S$ is continuous (and thus a homeomorphism) when $\Omega_p$ and $\Omega E_p$ are equipped with their respective $p$-variation topologies.
+%\end{proposition}
+%
+%\begin{corollary}
+%	The  evaluation map $\mathbb{I}^p_{[0,T]}:\Omega_p \rightarrow E$, $X \rightarrow S(X)_{0,T}$, is continuous.
+%\end{corollary}
+%
+%Define by $G\Omega_p$ the space of\textit{ geometric} $p$-\textit{rough paths}, which is the closure of $S_{[p]}(\Omega_1)$ in $\Omega_p$.
+%
+%%ОПРЕДЕЛЕНИЕ Geometric Rough Path
+%%Definition 3.13. A geometric p-rough path is a p-rough path that can be expressed as a limit of 1-rough paths in the p-variation distance. The space of geometric p-rough paths in V is denoted by GΩp (V ).
+%
+%\begin{definition}
+%	Denote the set of signatures of all geometric $p$-rough paths by $S_p(V ) = \{S(X)_{0,T} | X \in G\Omega_p\} \subset E$.
+%\end{definition}
+%
+%Note that $S_p$ is equipped with the subspace topology of $E$. Moreover, from the (Corollary 5) we can conclude that $S_1$ is dense in $S_p$.
+%
+%
+%%Нужно ли?
+%%Remark that $S_p$ is closed under multiplication in $E$ and that for all $x \in G\Omega_{p}$, the inverse of $S(x)_{0,T}$ is $S(y)_{0,T} = $\alpha(S(x)_{0,T} )$, where $y \in G\Omega_p$ is the reversal of $x$ and $\alpha$ is the antipode of $E$ defined in Section 3 ([28] Theorem 3.3.3). Thus $S_p$ is a subgroup of $U = \{g \in E | \alpha(g) = g −1\}$.
+%
+%
+%
+%Let now consider a finite dimensional case, namely $V=\mathbb{R}^d$. Note that if for the element $g \in E(\mathbb{R}^d)$ its canonical homomorphism $\pi_n(g)=(g^0,g^1,...,g^n)$ is in the free nilpotent Lie group of order $n$, $G^n(\mathbb{R}^d)$, then $ g\in G(\mathbb{R}^d)$ \parencite[see][Lemma 2.24]{lyons2007differential}.
+%
+%%ПЕРЕПИСАТЬ (попробовать еще раз поискать эту книгу[32])
+%%We remark that the coproduct ∆ of E(R d ) is given by a locally finite formula involving the shuffle product ([32] Proposition 1.8)
+%
+%As was shown by Chen in \parencite{chen1957integration}, in $\mathbb{R}^d$ space the signature of a bounded variation path is group like element of $E(\mathbb{R}^d)$. Moreover, we get the following inclusions for $p\geq1$, $S_p(\mathbb{R}^d ) \subset S_1(\mathbb{R}^d) \subseteq G(\mathbb{R}^d )$, since $G$ is closed in $E$.
+%
+%Define the space of \textit{weakly geometric $p$-rough paths} by $WG\Omega_p(\mathbb{R}^d) \subset \Omega_p(\mathbb{R}^d)$. The space includes such $p$-rough paths $x\in \Omega_p(\mathbb{R}^d)$ that satisfy the following condition %, namely the paths take values in the free $[p]$-step nilpotent Lie group
+%\begin{equation}
+%	(x_{s,t}^0,x_{s,t}^1,...,x_{s,t}^{[p]})\in G^{[p]}(\mathbb{R}^d), \: \forall (s,t)\in \Delta_{[0,T]},
+%\end{equation}
+%that is it takes values in the free  $[p]$-step nilpotent Lie group, we will call such path as weakly geometric $p$-rough path. % Let denote space of such path by $WG\Omega_p(\mathbb{R}^d) \subset \Omega_p(\mathbb{R}^d)$.
+%
+%As was shown in \parencite{friz2010multidimensional}, we have the inclusions $G\Omega_p(\mathbb{R}^d)\subset WG\Omega_p(\mathbb{R}^d) \subset G\Omega_{p'}(\mathbb{R}^d )$ for any $p'>p$. Moreover, we have $WS_p(\mathbb{R}^d ) \subset S_{p'} (\mathbb{R}^d )$, where $WS_p(\mathbb{R}^d ) = \{S(x)_{0,T} | x\in W G\Omega_{p}(\mathbb{R}^d )\}$. Thus all results stated for the sets $S_p(\mathbb{R}^d)$ have analogous versions for the sets $W S_p(\mathbb{R}^d )$.
+%
+%\begin{proposition}
+%	%Ссылку оставить?
+%	Let $p \geq 1$. Then $S_p(\mathbb{R}^d)$ is $\sigma$-compact in $G(\mathbb{R} ^d )$. In particular, $S_p(\mathbb{R} ^d )$ is a Borel set of $G(\mathbb{R} ^d )$.
+%\end{proposition}
+%
+%
+%To proof the proposition we have to recall the $p$-variation metric $d_{p-var}$ on $\Omega_{p}(\mathbb{R}^d)$ under which $(\Omega_p (\mathbb{R}^d), d_{p-var})$ is a complete metric space with a weaker topology than the $p$-variation topology, but for which convergence of a sequence in $d_{p-var}$ implies the existence of a subsequence which converges in the p-variation topology (see \parencite{friz2010multidimensional} Section 8 and \parencite{lyons2002system} Proposition 3.3.3).
+% 
+%\begin{proof}
+%	For $r > 0$, consider the set $B_p^r = \{x \in G\Omega_p(\mathbb{R}^d) \:|\: \lVert x\rVert_ {p-var;[0,T]} \leq r\} $. For every $x \in B_p^r$ there exists a suitable reparametrization $y \in B_p^r$ for which
+%	$\lVert x\rVert_ {p-var;[0,T]}= \lVert y\rVert_ {p-var;[0,T]}$,  $S(x)_{0,T} = S(y)_{0,T}$ , and $t \rightarrow y_{0,t}$ is $(1/p)$-Hölder continuous with Hölder coefficient depending only on $r$ and $p$. Let $C_p^r \subset B_p^r$ be the set of all such reparametrizations.
+%	
+%	Let $p' > p$ be such that $[p']	= [p]$. It follows from an interpolation estimate	and the Arzelà-Ascoli theorem ([...] Lemma 5.12, Proposition 8.17) that $C_p^r$	is	compact in $(G\Omega_{p'} (\mathbb{R}^d	), d_{p'-var})$ and thus sequentially compact in $G\Omega_{p'} (\mathbb{R}^d)$ under the $p'$-variation topology.
+%	
+%	Since $\mathbb{I}^{p'}_{[0,T]}:G\Omega_{p'}(\mathbb{R}^d) \rightarrow S_{p'}(\mathbb{R}^d)$ is continuous by Corollary 5.5, and $\mathbb{I}^{p'}_{[0,T]}(C_p^r	) =	\mathbb{I}^{p'}_{[0,T]}(B_p^r)$, it follows that $\mathbb{I}^{p'}_{[0,T]}(B_p^r)$ is sequentially compact in $S_{p'}(\mathbb{R}^d)$, and thus compact. Since $S_{p}(\mathbb{R}^d) =\bigcup_{r\geq 1}	\mathbb{I}^{p'}_{[0,T]}(B_p^r) $, it follows that $S_{p}(\mathbb{R}^d)$ is $\sigma$-compact in $G(\mathbb{R}^d)$.
+%	
+%\end{proof}
+%
+%% \begin{corollary}
+%%	A path of bounded variation in $\mathbb{R} ^d$ is tree-like if and only if its Cartan development into every finite-dimensional compact Lie group is trivial.
+%% \end{corollary}
+
+
+
+
+
+
+\section{Expected signatures and laws}
+
+
+In this section we discuss  the expected signature of G-valued random
+variables, the conditions under which the expected signatures of $G(\mathbb{R}^d)$-valued random variables determine its laws and also in Theorem \ref{Thm5} we show how this criterion can be verified, even without explicit knowledge of the expected signature. Moreover, we note that the signature of a rough path can be represented as an element of the space $E(V)$. 
+
+Firstly, note that to denote \textit{simplex} we will use the notation $\Delta_{[0,T]}=\{(s,t): 0\leq s\leq t\leq T \}$. Let denote \textit{truncated tensor algebra} by $T^n(V) =\oplus_{0\leq k\leq n} V^{\hat{\otimes}k}$, where $V^{\otimes 0}=\mathbb{R}$ and $V^{\hat{\otimes}k}=V\otimes...\otimes V$ $(k$ times of $V$).
+
+\begin{definition}\parencite[see][]{chevyrev2016characteristic}
+	Let us now by $\Omega_p (V)$ denote the \textit{set of the rough paths} in $T^{([p])}(V)$ with $p$-variation. That is the multiplicative functionals $X:\Delta_{[0,T]} \rightarrow T^{[p]} $ with control $\omega$, such that 
+	
+	\begin{itemize}
+		%	\item $X_{(s,t)}^0=1$ and $X_{(s,t)}X_{(t,u)}=X_{(s,u)}$ for all $0\leq s\leq t \leq u \leq T$, and
+		
+		\item  for all $0\leq s\leq t \leq u \leq T$ we have
+		\begin{equation} \label{cond(a))}
+			X_{(s,t)}^0=1 \: \text{and} \: X_{(s,t)}X_{(t,u)}=X_{(s,u)}
+		\end{equation}
+		and
+		\item for some control $\omega$ one has
+		\begin{equation} \label{5.1}
+			\sup_{0\leq k \leq [p]} ((k/p)!\beta_p \lVert X_{(s,t)}^k \rVert)^{p/k}\leq \omega (s,t), \: \forall (s,t)\in \Delta_{[0,T]},
+		\end{equation}
+		where $\beta_p$ is constant that only depends on $p$.
+	\end{itemize} 
+\end{definition}
+The definitions of multiplicative functionals and a control $\omega$ can be found in the Appendix \ref{anhang}. 
+
+%Assume we have such a map $X\in \Omega_p$ which satifies $(\ref{5.1})$ with control function $\omega$.
+
+Assume for some control function $\omega$ the map $X\in \Omega_p$ satisfaies condition $(\ref{5.1})$. Thus using following theorem we obtain one of the essential results, that follows from the extension theorem \parencite[see][Theorem 3.7]{lyons2007differential}.
+
+\begin{theorem}\parencite[see][Theorem 3.1.3]{chevyrev2015characteristic}
+	Let $X \in \Omega_p$. Then for all $n \geq [p]$ there exists
+	a unique map $S_n(x) : \Delta_{[0,T]} \rightarrow T^n$ such that $(\ref{cond(a))})$ and $(\ref{5.1})$ remain true for the same control $\omega$	and with $sup_{1\leq k\leq [p]}$	replaced by $sup_{1\leq k\leq n}$ in $(\ref{5.1})$.
+\end{theorem}
+ 
+ Thus, the theorem shows, that for every multiplicative functional of degree $n$ and finite $p$-variation we have an unique extension to a multiplicative functional of arbitraty high degree.
+ 
+ From the factorial decay in $(\ref{5.1})$ we can conclude that a map $S(X):\Delta_{[0,T]} \rightarrow P=\prod_{k\geq 0}V^{\hat{\otimes}k}$ takes values in the space $E$ for any $p \geq 1$ (see Corollary \ref{cor2.5}).
+ 
+ Let now define the extension of the space of rough paths $\Omega_p$. 
+ \begin{definition}
+	The space $\Omega E_p$ is defined as a set of maps $X : \Delta_{[0,T]} \rightarrow E$ which satisfy $(\ref{cond(a))})$ and $(\ref{5.1})$ with $\sup_{0\leq k \leq [p]}$ replaced by $\sup_{0\leq k}$ in ($\ref{5.1}$).
+ \end{definition}
+ %
+ %
+ Thus we have that the map $S$ from $\Omega_p$ to $\Omega E_p$ is bijective, such that the $[p]$-th level truncation $(X_{s,t}^0, X_{s,t}^1, . . .) \rightarrow (X_{s,t}^0, X_{s,t}^1, . . . , X_{s,t}^{[p]})$ provide the inverse. Moreover, the $X_{s,t}^k$ components could be named as iterated integrals.
+ %
+ Further by $S(X)_{0,T} \in E$ we can denote the signature of a rough path $X \in \Omega_p$. Note that for $1\leq p <2$, $S(x)_{0,T} $ is a sequence of iterated integrals (in terms of Young theory) of the path $X_{0,.}:[0,T]\rightarrow V$.
+
+%Написать что про S(X), ОТКУДА ВЗЯЛ, и подумать какие определния взять для p=1...
+As was mentioned in \parencite[][Corollary 5.5]{chevyrev2016characteristic}, the signature map $\mathbb{I}^p_{[0,T]}:\Omega_p \rightarrow E,  X \rightarrow S(X)_{0,T}$, i.e. the map that sends the rough path to its signature, is continuous. Hence, we have that for the  $\Omega_p$-valued rough path $X$ its signature $S(X)_{0,T}$  is a well-defined $E$-valued random variable.
+
+Let's recall the Corollary \ref{Cor3.3}, that is, assume we have normed space $V$ and $G$-valued random variable $X$, such that its expected signature exists and has $r_2(X)=\infty$, then $\mathbb{E}[X]$ exists and $\textbf{Sig}(X)=\mathbb{E}[X]$. Hence, for all $f \in E'$ and, in addition, for all $M \in \mathcal{A}$, the expected signature $\textbf{Sig}(X)$ determine the expected value of $f(X)$, $\mathbb{E}[f(X)]$. Then, applying the results of Corollary \ref{Cor4.12} on the uniqueness of the probability measure, we can write the following proposition.
+
+\begin{proposition}\label{Prop6.1} \parencite[see][]{chevyrev2016characteristic}
+	Let $X$ and $Y$ be $G(\mathbb{R}^d)$-valued random variables such that $\textbf{Sig}(X) = \textbf{Sig}(Y)$ and $\textbf{Sig}(X) \in E$, i.e., $\textbf{Sig}(X)$ has an infinite radius of convergence. Then $X \stackrel{\text{\textit{D}}}{=} Y$.
+\end{proposition}
+
+
+
+
+
+
+
+
+%пояснить зачем тут пример?
+\begin{example}\parencite[see][Example 6.2]{chevyrev2016characteristic}
+	We apply Proposition \ref{Prop6.1} to the Lévy–Khintchine formula established	in \parencite{friz2017general}. Recall that every Lévy process in $\mathbb{R}^d$ admits a lift to a $G\Omega_p(\mathbb{R}^d)$-valued random variable $X$ for any $p > 2$ by adding appropriate adjustments for jumps \parencite[see][Section 2]{williams2001path}. Let $(a, b, K)$ denote the triplet of the Lévy process.	
+	It follows from \parencite[Section 9.1]{friz2017general} that $\textbf{Sig}(X)$ exists (as an element of $P(\mathbb{R}^d)=\prod_{k\geq 0}(\mathbb{R}^d)^{\otimes k}$) whenever the Lévy measure $K$ has finite moments of all orders. Furthermore, $\textbf{Sig}(X) \in E$ exactly when
+	\begin{equation}\label{eq6.1}
+		 \int_{\mathbb{R}^d}(e^{\lambda \|y\|}-1-\lambda \textbf{1}_{\|y\|\leq 1}\|y\|) K(dy)<\infty \text{ for all } \lambda >0.
+	\end{equation}
+It follows by Proposition \ref{Prop6.1} that whenever (\ref{eq6.1}) is satisfied, $S(\textbf{X})_{0,T}$ is uniquely determined as a $G(\mathbb{R}^d)$-valued random variable by its expected signature.
+\end{example}
+
+Now we determine a theorem that shows the conditions which are necessary to make the radius of convergence $r_1(X)>0$ or $r_1(X)=\infty$ without explicit knowledge of $\textbf{Sig}(X)$. Recall that radiuses of convergence have the following relations $r_1(X) \leq r_2(X)= R(\textbf{Sig}(X))$. In this way, we set the conditions under which the radius of convergence $r_2$ will be equal to infinity, that is, in the case $r_1=\infty$.
+
+Let $A$ be an topological algebra, $B$ is its subset  and $n\geq 1$. Define $B^n=\{x_1...x_n| \: x_1,...,x_n \in B\}$ and $B(x)=\inf{\{n\geq 1 | x\in B^n\}}$ for any $x\in A$ (assuming $B(x)=\infty $ if $x\notin B^n$ for all $n\geq 1$). Moreover, for measurable set $B\subset A$ and random variable $X\in A$ we have that $B(X)$ is well-defined random variable in $\{1,2,...\}\cup\{\infty\}$.
+
+ 
+\begin{theorem}\parencite[see][]{chevyrev2016characteristic}\label{Thm5}
+	Let $V$ be a normed space and $X$ an $E$-valued random variable. Suppose there exists a bounded, measurable set $B \subset E$ such that $B(X)$ has an exponential tail, i.e., $\mathbb{E} [e^{\lambda B(X)}] < \infty $ for some $\lambda > 0$. Then $r_1(X) > 0$. If moreover $\mathbb{E} [e^{\lambda B(X)}]< \infty $ for all $\lambda > 0$, then $r_1(X) = \infty$. 
+\end{theorem}
+
+
+\begin{proof} 
+	
+	Equip $E$ with the projective extension of the norm on $V$ . For any $r > 0$ and $\lambda > 0$ such that $\sup_{x\in B} \lVert \delta_r(x)\rVert < e^\lambda$, it holds that
+	\begin{equation} \label{6.2}
+		\sum_{k\geq 0}r^k\mathbb{E}[\lVert X^k\rVert]=\mathbb{E}[\lVert\delta_r(X)\rVert]\leq \mathbb{E}[e^{\lambda B(X)}],
+	\end{equation}
+	where the inequality follows from the fact that $\delta_r(X) = \delta _r(X_1). . . \delta_r(X_{B(X)})$ for 	some $X_1, . . . , X_{B(X)} \in B$.
+	
+	Suppose first that $\mathbb{E}[e^{\lambda B(X)}]< \infty$ for all $\lambda > 0$. For any $r > 0$ let $\lambda > 0$ be sufficiently large such that $\sup_{B(X)} \lVert \delta_r(x)\rVert < e^\lambda$. Then (\ref{6.2}) implies that $r_1(X) \geq r$,	and thus $r_1(X) = \infty$.
+	
+	
+	Suppose now that $\mathbb{E}[e^{\lambda B(X)}]< \infty$ for some $\lambda > 0$. By Proposition 2.10 from \parencite{chevyrev2016characteristic}, the functions $\delta_r$ converge strongly to $\delta_0$ as $r \rightarrow 0$ and, in particular, uniformly on $B$. Thus there exists $r > 0$ such that $\sup _{x\in B} \lVert \delta_r(x)\rVert < e^\lambda$. Then $(\ref{6.2})$ implies that	$r_1(X) \geq r > 0$ as desired.
+	
+\end{proof}
+
+
+%Написать какую-то концовку...
+
+
+
+\chapter{Implementation}
+
+To understand how the implementation of signatures works in practice, we decided to simulate the calculation of signatures and expected signatures based on securities prices. We have used Heston's pricing model to calculate securities prices. Since it is one of the most popular stochastic volatility models for derivatives pricing.
+So in this chapter we will look at the Heston model, examples of security price simulations using the Monte Carlo method, calculation of signatures and expected signatures using the Python "Signatory" library, discuss the results and draw conclusions. This chapter is based on \parencite{gauthier2009fitting}, \parencite{heston1993closed},  \parencite{moodley2005heston}, \parencite{kidger2020signatory}...
+
+
+
+\section{Heston Model}
+
+% Write about Heston Model, why did I choose it... напистаь про параметры из этой статьи?... https://fam.tuwien.ac.at/~sgerhold/pub_files/theses/bauer.pdf
+% 3.6 Influence of Parameters
+%file:///D:/old%20Computer/DownLoads/Study/7%20semester/Master%20thesis/pdfslide.net_the-heston-mode-a-practical-approach.pdf
+
+
+Let us first consider two stochastic differential equations, which  corresponds to the stock price $S$ and its variance $v$ respectively:
+\begin{equation}
+	dS_t=\mu_t S_t dt+ \sqrt{v_t} S_tdW_t^S, \; S_0 \geq 0,
+\end{equation}
+\begin{equation}
+	dv_t=\kappa(\theta - v_t) dt + \sigma\sqrt{v_t}dW_t^v, \; \sigma_0^2=v_0=0,
+\end{equation}
+with 
+\begin{equation}
+	dW_t^S dW_t^v=\rho dt,
+\end{equation}
+where $W_t^S$ and $W_t^v$ are two standard Brownian motions, $rho$ is its correlation. Moreover, $\kappa$, $\theta$, $\sigma$, $\rho$, $v_0$ are parameters of the model, namely:
+
+	\begin{itemize}
+	\item Correlation parameter: $\rho$
+	\item Initial variance: $v_0$
+	\item Mean reversion rate: $\kappa$
+	\item Volatility of variance: $\sigma$
+	\item Long run variance: $\theta$.	
+	\end{itemize}
+
+Such a model we will call the Heston model, which was first presented by Heston in \parencite{heston1993closed}. The Heston model considers asset volatility as a stochastic process, which means that it can vary randomly over time. This differs from traditional models, which assume that volatility is constant (such as the Black-Scholes model). Heston's model is often used to evaluate options and other derivatives, as well as for portfolio risk analysis.
+
+\begin{figure}[!htbp]
+	\includegraphics[width=\linewidth]{volatility.PNG}
+	\caption{Changes in the volatility smile from different values of the initial variance $v=\sqrt{v_0}$ (left) and long-run variance $\theta$ (right). Source of pictures: \parencite{gauthier2009fitting}.}
+	\label{Fig3.1}
+\end{figure}
+
+Since such a model depends on the initial parameters that we mentioned earlier, it is important to understand the meaning of these parameters and how they affect the model in general.
+
+Let us start with \textbf{initial variance }$v_0$. Adjusting the initial level of variance can impact the height of the volatility smile curve rather than its shape. For example, increasing the initial volatility level, denoted as $\sqrt{v_0}$, causes the implied volatility smile to move upwards (as shown in Figure $\ref{Fig3.1}$ on the left). This effect can be intuitively understood and does not require further explanation.
+
+Actually, both the \textbf{long-term variance} $\theta$ and the initial variance $v_0$ have a similar effect on the smile of the implied volatility. This can be seen in Figure $\ref{Fig3.1}$ on the right, which shows the effect of changing the long-run variance.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=10cm, height=6cm]{MeanReversion.PNG}
+	\caption{Changes in the implied volatility smile from different values of the mean reversion $\kappa$. Source of pictures: \parencite{gauthier2009fitting}.}
+	\label{Fig3.2}
+\end{figure}
+
+The \textbf{mean reversion rate} $\kappa$ is a measure of the degree of volatility clustering. This means that large movements are often followed by large movements, while small movements are more likely to be followed by small movements. The mean reversion parameter affects the shape of the curve reflecting this phenomenon. A higher mean reversion parameter will result in a flatter curve, while a lower mean reversion parameter will result in a curve with more curvature, see figure $\ref{Fig3.2}$, similar to the effect of increased variance volatility. This can be seen lower in figure \ref{Fig3.9}.
+
+
+
+The \textbf{correlation} coefficient, denoted by $\rho$, measures the relationship between the log-returns and volatility of an asset. When $\rho$ is positive, an increase in the asset's price or return is accompanied by an increase in volatility, which leads to a distribution with a heavy right tail. On the other hand, when $\rho$ is negative, an increase in the asset's price or return is associated with a decrease in volatility, resulting in a distribution with a heavy left tail. The correlation, therefore, determines the skewness of the distribution. Figure $\ref{Fig3.3}$ illustrates how different values of $\rho$ affect the skewness of the density function.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=8cm, height=7cm]{Correlation.PNG}
+	\caption{Changes in the distribution from different values of the correlation coefficient $\rho$. Source of pictures: \parencite{moodley2005heston}.}
+	\label{Fig3.3}
+\end{figure}
+
+
+
+The skewness of a distribution also affects the shape of the implied volatility surface, and thus the correlation coefficient $\rho$ also plays a role in this. By changing the value of $\rho$, the model is able to generate a range of different volatility surfaces, which allows it to better capture the varying levels of volatility at different strikes that are not accounted for in the Black-Scholes model. Figure $\ref{Fig3.5}$ illustrate the impact of different values of $\rho$ on the implied volatility surface.
+
+The \textbf{volatility of variance}, represented by the symbol $\sigma$, has an impact on the kurtosis, or peak, of a distribution. When $\sigma$ is equal to zero, the volatility is deterministic and the resulting log-returns will be normally distributed. However, if $\sigma$ is increased, it will only increase the kurtosis and create heavy tails on either side of the distribution. This relationship is illustrated in Figure \ref{Fig3.7}.
+
+\begin{figure}[!htbp]
+	\centering
+		\includegraphics[width=8cm, height=7cm]{VolofVol.PNG}
+	\caption{Changes in the distribution from different values of the volatility of variance $\sigma$. Source of pictures: \parencite{moodley2005heston}.}
+	\label{Fig3.7}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=8cm, height=7cm]{VolofVol1.PNG}
+	\caption{Implied volatility curve, $\rho = 0$, $\kappa = 2$,
+		$\theta = 0.04$, $\sigma = 0.1$, $V_0 = 0.04$, $r = 0.01$, $S_0 =1$, strikes: $0.8 - 1.2$, maturities : $0.5 - 3$ years. Source of pictures: \parencite{moodley2005heston}.}
+	\label{Fig3.9}
+\end{figure}
+
+Moreover, the kurtosis of the distribution also affects the implied volatility, as shown in Figures \ref{Fig3.9} and \ref{Fig3.8}. Higher values of $\sigma$ lead to a more prominent skew or smile, which makes sense in relation to the leverage effect. Higher values of $\sigma$ indicate more volatile volatility, meaning that the market is more prone to extreme movements.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{VolofVol2.png}
+		\caption{}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{VolofVol3.png}
+		\caption{}
+		\label{fig:sub2}
+	\end{subfigure}
+	\caption{Implied volatility curves, $\rho = 0.5$(left), $\rho = -0.5$(right), $\kappa = 2$,
+		$\theta = 0.04$, $\sigma = 0.1$, $V_0 = 0.04$, $r = 0.01$, $S_0 =1$, strikes: $0.8 - 1.2$, maturities : $0.5 - 3$ years. Source of pictures: \parencite{moodley2005heston}.}
+	\label{Fig3.8}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Cor1.png}
+		\caption{}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Cor3.png}
+		\caption{}
+		\label{fig:sub2}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{Cor2.png}
+	\caption{}
+	\label{fig:sub3}
+	\end{subfigure}%
+	\caption{Implied volatility surface, $\rho = 0.5$(left), $\rho = -0.5$(right), $\rho = 0.5$(bottom) , $\kappa = 2$,
+		$\theta = 0.04$, $\sigma = 0.1$, $V_0 = 0.04$, $r = 0.01$, $S_0 =1$, strikes: $0.8 - 1.2$, maturities : $0.5 - 3$ years. Source of pictures: \parencite{moodley2005heston}.}
+	\label{Fig3.5}
+\end{figure}
+
+
+
+
+
+\section{Simulations, results and conclusions}
+
+To analyse the expected signature in Python, we first imported the necessary libraries and modules, such as NumPy, Signatory, torch and others. After importing the necessary libraries, we have defined the stochastic process on which we based our analysis, namely the Heston model. We then calculated the expected signatures of our model for different sets of parameters. To do this, we applied simulation modelling to estimate the expected signatures based on a large number of possible outcomes. After calculating the expected signatures, we used Python plotting libraries, such as Matplotlib, to visualise the distribution of signatures over time and across parameter sets. So we used the creation of line graphs, histograms and other types of diagrams to show how the expected signature changes over the course of the process.
+
+%Let us start with the results of calculations, where...
+
+
+
+%Для того чтобы проанлизоровать результативность ожидаемых сигнатру, вычисляемых на основе рассчетов оценочной модели Хестона, мы симулировали различные комбинации изменений параметров этой модели. Более того, мы использовали комбинации из 2-х, 3-х параметров одновременно. Результаты проиллюстрированы в виде графиков...
+%Так давайте начнем с результатов, где мы изменяли лишь один из основных параметров моедли Хестона, в то время как остальные параметры оставались константами. Мы задали параметрам следующие постоянные значения: theta=0.15, kappa=2, rho=0.6, sigma=0.6 and r=0.04, более того допускаем что Initial variance равна Long run variance. В качестве диапозонов изменения параметров вы предположили: kappa, rho, sigma, theta, r. Более того, мы рассматриваем сигнатуры с уровнем усечения m=2 и размерность пути d=3. Таким образом по формуле (2.16) мы получаем, что длина сигнатур в наших рассчётах равна 12. В дальнейшем каждый из этих компонентов сигнатуры мы будем называть ключ сигнатуры с определенным номером: (1), (2), (3), (1,1), ..., (3,3). Сразу хотим отметить, что ключи (3) и (3,3) будут всегда иметь постоянное значение, так как их вычисления зависят лишь от времени, которое мы не является изменяющимся параметром.
+
+% Проведя вычисления ожидаемых сигнатур мы можем отметить, что на поведение ключей сигнатур больше всего повлияло изменения таких параметров как kappa, theta и sigma. Тем не менее, параметры rho и r также имеют эффект хоть и менее заметный.
+
+% Рассмотрим на результаты, которые были вычислены при изменении параметра kappa. Легко можно заметить, что большинство ключей ожидаемой сигнатуры кореллируют с изменением параметра kappa. Так например, ключи (2), (1,1), (1,2), (2,1), (2,2), (2,3) и (3,2) уменьшают своё значение при увеличении kappa's величины. Хотя ключи (1,1) и (2,1) имеют общую тенденцию с остальными ключами, упоминавшихся ранее, эти ключи имеют большую волатильность, что можно заметить на графиках. Про ключи (1), (1,3) и (3,1) мы не можем отметить что-то выдающееся/заметное, однако из гистограмм этих ключей можно выдлеить то, что они имеют распределение схожее с нормальным. Более его, отметим что (1,2) начинает принимать отрицательные значения, примерно с момента, когда kappa больше 1.6.
+
+%Теперь посмотрим на полученные результаты вычислений с параметром sigma. Можно отметить, что ключи (1), (1,3) и (3,1) также как и в прошлом случае имеют высокую дисперсиб по графику и их гистограмма имеет "колокольный" вид. Остальные ключи, а именно (2), (1,1), (1,2), (2,1), (2,2), (2,3) и (3,2), имеют ярко выраженную зависимость от изменений величины параметра sigma. В то время как ключ (1,2) имеет обратную зависимость с параметром sigma, то есть при увеличении значения параметра, значение ключа уменьшается. Более того, этот ключ принимает только отрицательные значения. Все прочие ключи имеют общую тенденцию, а именно значения этих ключей увеличивается при увеличении параметра sigma. В это же время, ключи (1,1), (2,1) и (3,2) имеют более сильное рассеивание особенно при большиз значениях параметра по сравнению с остальными ключами.
+
+%Перейдем к результатам основанных на на изменении параметра theta. В этом случае мы имеем, что большая часть ключей имеют высокую дисперсию. Однако ключи (1,1), (1,2), (2,1) и (2,2) имеют хорошо выраженную зависимость от изменений параметра. Так например, (1,1), (2,1) и (2,2) прямо зависят от величины параметра, а именно при увелчении theta увеличивается и значение ключа. В то же время (1,2) имеет обратный тренд и более того принимает лишь отрицательные значения. Также можно отметить, что (2) и (2,3) для малых theta имеют большие значения, которые резко уменьшаются и начинаются рассееваться при незначительном увеличении theta.
+
+%Проанализировав результаты вычислений ожидаемых сигнатур, можно отметить что лишь три ключа имеют особенные черты распределения. Так например, (1,2) и (2,1) имеют сильную кореляцию с изменением. В то время как (1,2) принимает отрицательные значения и уменьшается при увеличении rho, (2,1) имеет притивоположый тренд. Более того в графике (1,1) можем отметить тенденцию на увеличения при росте значений параметра, хоть этот ключ и имеет большую дисперсиб по сравнению с предыдущими описанными ключами.
+
+%Что касается результатов при изменении параметра r, то все ключи имеют высокую дисперсию. Однако для (1,2) и (2,1) мы можем отметить небольшие зависимости, хоть и противоположные.
+
+
+In order to analyse the performance of the expected signatures calculated from the calculations of the Heston pricing model, we simulated different combinations of varying parameters of this model. Moreover, we used combinations of 2, 3 parameters simultaneously. %The results are illustrated in the form of graphs...
+
+So let's start with the results, where we changed only one of the main parameters of the Heston model, while the other parameters remained constants. We set the parameters to the following constant values: $\theta=0.15$, $\kappa=2$, $\rho=0.6$, $\sigma=0.6$ and $r=0.04$, moreover we assume that Initial variance is equal to Long run variance. As parameter variation ranges, we assumed: $\kappa$, $\rho$, $\sigma$, $\theta$, r. Moreover, we consider signatures with truncation level m=2 and path dimension d=3. Thus, by formula (2.16), we obtain that the signature length in our calculations is 12. Hereafter, we will call each of these signature components a signature key with a specific number: (1), (2), (3), (1,1), ..., (3,3). We want to note right away that keys (3) and (3,3) will always have a constant value, since their calculations depend only on time, which we are not a varying parameter.
+
+After performing the expected signature calculations, we can note that the behaviour of the signature keys was most affected by changes in $\kappa$, $\theta$ and $\sigma$. However, the parameters $\rho$ and $r$ also have an effect, although less noticeable.
+
+Let's look at the results that were calculated when the $\kappa$ parameter was varied. It can easily be seen that most of the expected signature keys correlate with changes in the $\kappa$ parameter. For example, the keys (2), (1,1), (1,2), (2,1), (2,2), (2,3) and (3,2) decrease their value when kappa's value increases. Although the keys (1,1) and (2,1) have the same tendency as the other keys mentioned before, these keys have a higher volatility, which can be seen on the graphs. There is nothing outstanding/noticeable about the keys (1), (1,3) and (3,1), however it can be seen from their histograms that they have a distribution similar to the normal one. Moreover, we note that (1,2) starts to take negative values, approximately from the moment when $\kappa$ is greater than $1.7$.
+
+Now have a look at the results of calculations with the $\sigma$ parameter. It can be noted that the keys (1), (1,3) and (3,1) have high variance in the graph and their histogram has a "bell" shape like in the previous case. The remaining keys, namely (2), (1,1), (1,2), (2,1), (2,2), (2,3) and (3,2) have a distinct dependence on changes of the $\sigma$ parameter value. Whereas the key (1,2) has an inverse dependence on the $\sigma$ parameter, that is, as the value of the parameter increases, the value of the key decreases. Moreover, this key only accepts negative values. All other keys have a general tendency, i.e. the value of these keys increases when the $\sigma$ parameter increases. At the same time, the keys (1,1), (2,1) and (3,2) have a greater scattering especially at higher values of the parameter compared to the other keys.
+
+Move on to the results based on the variation of $\theta$ parameter. In this case we have that most of the keys have high dispersion. However, the keys (1,1), (1,2), (2,1) and (2,2) have a well defined dependence on parameter changes. For example, (1,1), (2,1) and (2,2) directly depend on the parameter value, namely when $\theta$ increases the value of the key also increases. At the same time (1,2) has an opposite trend and moreover only takes negative values. It can also be noted that (2) and (2,3) for small $\theta$ have large values, which decrease sharply and start to diffuse when $\theta$ is slightly increased.
+
+After analyzing the results of the expected signatures, we can note that only three keys have special patterns in their distribution. For example, (1,2) and (2,1) have a strong correlation with the change of $\rho$. While (1,2) takes negative values and decreases with increasing $\rho$, (2,1) has the opposite trend. Moreover, in the graph (1,1) we can note the tendency to increase with the growth of parameter values, though this key has a larger dispersion in comparison to the previous described keys.
+
+As for the results when changing the parameter $r$, all the keys have a high variance. However, for (1,2) and (2,1) we can note small correlations, although opposite.
+
+
+%Для визуализации рассчетов ожидаемых сигнатур с одновременно изменяющимися двумя параметрами мы использовали графики как в 2d, так и в 3d. В расчетах так же как в прошлом случае мы использовали следующие постоянные значения параметров, если они не использоются как изменяющееся. Мы предполагаем, что  theta=0.15, kappa=2, rho=0.6, sigma=0.6 and r=0.04, более того допускаем что Initial variance равна Long run variance. Для меняющихся параметров мы использовали по 50 значений в каждом из следующих диапазонов: .....
+% В случае с 2d графиками ось "y" принимала значение клчючей ожидаемых сигнатур. А ось "x" означает одну из 2500 комбинаций переменных параметров, то есть по 50 каждый из двух параметров. 
+% В результате чего мы можем выделить следующие оличительные черты в графиках.
+% Ключи (1), (1,3) и (3,1) имеют общую форму и тенденцию. В случае когда параметр theta был включен во внешнюю петлю, графики получались такого вида, что при увеличении значения theta диапазон разброса увеличивается. В тоже время, в других случаях этот разброс равномерен по всем велечинам параметров.
+
+To visualise the calculations of the expected signatures with two parameters varying simultaneously, we used graphs in both $2d$ and $3d$. In the calculations, just as in the previous case, we have used the following constant parameter values, unless they are used as varying. We assume $\theta=0.15$, $\kappa=2$, $\rho=0.6$, $\sigma=0.6$ and $r=0.04$, moreover we assume that Initial variance is equal to Long run variance. We have used 50 values in each of the following ranges for the varying parameters:.
+
+In the case of 2d plots, the "y" axis took the value of the key expected signatures. And the "x" axis took one of 2500 combinations of variables, i.e. 50 each of the two parameters. 
+
+As a result, we can identify the following distinctive features in the plots.
+Keys (1), (1,3) and (3,1) have a common pattern and trend. In the case where $\theta$ was included in the outer loop, the plots are such that the spread increases as the value of $\theta$ increases. In other cases, however, the scatter is evenly distributed across all parameter values.
+
+
+
+
+
+
+123
+
+
+
+
+
+%------------------------------------------------------------------------------------
+%	                  APPENDIX
+%------------------------------------------------------------------------------------
+\begin{appendix} \label{anhang}
+	\chapter{Definitions, theorems, lemmas} %\label{anhang}
+	
+	In this appendix we will state definitions, theorems and propositions from functional analysis, which are necessary for a better understanding of this paper, but which are not the main focus of this thesis.
+	
+	\section{Basic definitions}
+	
+	By \textit{seminorms} on the vector space $V$ we define continuous real-valued functions $\gamma:V\rightarrow \mathbb{R}$ which satisfy following conditions:
+	
+	\begin{itemize}
+		\item Triangle inequality: for all $x,y\in \mathbb{R}$, $\gamma(x+y)\leq\gamma(x)+\gamma(y)$ 
+		\item Non-negativity: $\gamma(x)\geq0$ for all $x\in \mathbb{R}$
+		\item Positive homogeneity: $\gamma(hx)=|h|\gamma(x)$ for all $x\in \mathbb{R}$ and scalar $h$
+	\end{itemize}
+
+Moreover, if a seminorm $\gamma$ satisfies the condition of positive definiteness, i.e. $\gamma(x) = 0$ implies $x = 0$, then $\gamma$ is called a \textit{norm}. Therefore, we will define a \textit{normed space} as a pair $(V,\gamma)$.
+
+
+	
+	\begin{definition}
+		We define a \textit{topological vector space} as a vector space endowed with a topology with respect to which addition and scalar multiplication operations are continuous.
+	\end{definition}
+
+\begin{definition}\parencite[see][]{mallios2011topological}.
+	By a \textit{topological algebra} we mean an algebra $E$ which is a topological vector space in such a way that the ring multiplication in $E$ is separately continuous (i.e., continuous in each one of the two variables, the latter operation being a map $E\times E$ into $E$).
+\end{definition}
+
+Let by $N$ we denote a subset of topological space $E$. Then $N$ is \textit{dense} in $E$ if its closure $\bar{N}=E$.
+
+\begin{definition}
+	The topological space $E$ we call \textit{separable} if it has countable dense subset $N\subset E$. 
+\end{definition}
+
+\begin{definition}
+	We call the topological space $E$ \textit{metrizable} if its topology is induced by some metric on $E$.
+\end{definition}
+
+
+%https://journals.tubitak.gov.tr/cgi/viewcontent.cgi?article=2803&context=math
+
+\begin{definition}\parencite[see][]{chevyrev2015characteristic}
+	A \textit{locally m-convex algebra} $A$ is an algebra equipped with a locally convex topology for which there exists a fundamental family of defining seminorms $\Psi$ such that for all $\gamma \in \Psi$
+	\begin{equation}\label{2.1.2}
+		\gamma(xy) \leq \gamma(x)\gamma(y)\; \forall x, y \in A.
+	\end{equation}
+	When a seminorm $\gamma$ satisfies (\ref{2.1.2}), we say it is \textit{submultiplicative}. An locally $m$-convex algebra $ A$ is called \textit{normed} if there exists a single submultiplicative norm $\|\cdot \|$ which defi`nes the topology of $A$.
+\end{definition}
+
+
+\begin{definition}\parencite{akhiezer1981theory}
+	Hermitian operator is a a linear operator $A$ on a Hilbert space $H$ with a dense domain of definition $D(A)$ and such that $⟨Ax,y⟩=⟨x,Ay⟩$ for any $x,y\in D(A)$. An anti-hermitian operator is respectively an operator $A$ that satisfies $⟨Ax,y⟩=-⟨x,Ay⟩$.
+\end{definition}
+
+\begin{definition}\parencite{billingsley1968convergence}
+	A finite Borel measure $\mu$ on $S$ we call tight if for every $\epsilon > 0$ there exists a compact set $M \subset X$ such that $\mu(S \ M) < \epsilon$, or, equivalently, $\mu(M) \geq \mu(S)-\epsilon$.
+\end{definition}
+
+\begin{definition}
+	A vector space $V$ over a field $F$, with an operation $V\times V \rightarrow V$, denoted $(x, y) \rightarrow [xy]$ and called the \textit{bracket} or \textit{commutator} of $x$ and $y$, is called a \textit{Lie algebra} over $F$ if the following axioms are satisfied:
+	\begin{enumerate}
+		\item The bracket operation is bilinear.
+		\item 	$[xx] = 0$ for all $x$ in $V$.
+		\item $[x[yz]] + [y[zx]]+ [z[xy]] = 0$, where $x, y, z \in V.$ 
+	\end{enumerate}
+\end{definition}
+
+
+
+%7.1.1. Definition. Let X be a topological space. (i) A countably additive measure on the Borel σ-algebra B(X) is called a Borel measure on X. (ii) A countably additive measure on the Baire σ-algebra Ba(X) is called a Baire measure on X. (iii) A Borel measure µ on X is called a Radon measure if for every B in B(X) and ε > 0, there exists a compact set Kε ⊂ B such that |µ|(B\Kε) < 
+
+\begin{definition}
+	The norm $l_1$ of a vector $v\in V$ is denoted by $\|v\|$ and is defined as the sum of the absolute values of its components:
+	\begin{equation}
+		\|v \|=\sum_{i=1}^{n} |v_i|
+	\end{equation}	
+\end{definition}
+
+\begin{theorem}\parencite[see][Stone-Weierstrass theorem]{borwein1995polynomials}
+	If $X$ is a compact Hausdorff space, then a subalgebra $\mathcal{A}$ of $C(X)$, which contains $f=1$ and separates points, is dense in $C(X)$.
+\end{theorem}
+
+\begin{definition}\parencite{cioletti2017polynomial}
+	 We say that $f$ is\textit{ multi-homogenous} of multidegree $(d_1, . . . , d_m)$ if $f=f(x_1, . . . , x_m) \in \mathbb{F}(Q)^{(d_1,...,d_m)}$. Moreover, we can write 
+	 \begin{equation}
+	 	f=\sum_{d_1\geq 0,..., d_m\geq 0} f^{(d_1,...,d_m)},
+	 \end{equation}
+ where $f^{(d_1,...,d_m)} \in \mathbb{F}(Q)^{(d_1,...,d_m)}$. The polynomials $f^{(d_1,...,d_m)}$ are called the  \textit{multihomogenous components} of $f$.
+\end{definition}
+\begin{definition}\parencite{neumann1934almost}
+	We call a group $X$ maximally almost periodic if the group $X^+$ is Hausdorff, where $X^+ := (X, \tau^+)$ is the group $X$ endowed with	the Bohr topology $\tau ^+$ induced from the Bohr compactification $bX$.
+\end{definition}
+
+\begin{definition}\parencite{zaanen2012introduction}
+	The subset $F$ of the Banach space $V$ is called sequentially compact if
+	every sequence in $F$ has a subsequence converging to a point of $F$.
+\end{definition}
+ 
+
+
+\begin{definition}\parencite{lyons2002system}
+	Define a \textit{control function} as a continuous non-negative function $\omega$ on simplex $\Delta_{[0,T]}=\{(s,t): 0\leq s\leq t\leq T \}$ which is super-additive, such that $\omega(s, t) + \omega(t, u) \leq \omega(s, u), \: \forall s \leq t \leq u \in I$ and $\omega(t, t)=0$ for all $t \in I$.
+\end{definition}
+
+
+\begin{definition}\parencite{lyons2002system}
+	A continuous map $X$ from the simplex $\Delta_{[0,T]}$ into a truncated tensor algebra $T^{(n)}(V)$, and written as	
+	\begin{equation}
+			X_{s,t}=(X_{s,t}^0, X_{s,t}^1,..., X_{s,t}^n), \: with \: X_{s,t}^k\in V^{\otimes k}, \: for\: any \:(s,t)\in \Delta_{[0,T]},
+			\end{equation}
+	is called a \textit{multiplicative functional} of degree $n$ $(n\in \mathbb{N},n\geq1)$ if $X_{s,t}^0\equiv 1$ $($for all $(s,t) \in \Delta_{[0,T]})$ and
+	\begin{equation}
+		X_{s,t}\otimes X_{t,u}=X_{s,u},\: \forall (s,t),(t,u) \in \Delta_{[0,T]}, 
+	\end{equation}
+where the tensor product $\otimes$ is taken in $T^{(n)}(V)$.
+\end{definition}
+
+%\textbf{unitary representation of the group, involutive subalgebra,	tight Borel measures,topological Dual $E'$, 	$l^1$ norm} 
+
+
+%Last chapter:
+% implied volatility,
+
+\begin{definition}\parencite{karatzas1991brownian}
+	\textit{Brownian motion} is a stochastic process $(B_t)_{0\leq t\leq1}$ on a probability space $(\Omega, \mathcal{A}, \mathbb{P})$ such that	
+	\begin{itemize}
+		\item $B_0 = 0$ $\mathbb{P}$-a.s.
+		\item For $0 = t_0 < t_1 < t_2 < ...< t_n \leq 1$, the increments $B_{t_i} - B_{t_{i-1}}$, $1 \leq i \leq n$ , are independent with law $N(0, t_i - t_{i-1})$
+		\item $t \rightarrow B_t(\omega)$ is continuous for $\mathbb{P}$-a.a. $\omega \in \Omega$
+	\end{itemize} 
+\end{definition}
+
+	
+	\section{Second Part}
+
+	
+\end{appendix}
+
+
+
+%------------------------------------------------------------------------------------
+%	                  FIGURELIST
+%------------------------------------------------------------------------------------
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+%------------------------------------------------------------------------------------
+%	                  REFERENCES
+%------------------------------------------------------------------------------------
+%biblatex!
+%\printbiblist{ref}
+%\printbiblist{references.bib}
+\printbibliography
+
+\end{document}
