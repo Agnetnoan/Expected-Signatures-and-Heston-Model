@@ -78,6 +78,7 @@
 \newcommand{\vektor}[1]{\left(\begin{array}{c}#1\end{array}\right)} % Vektoren
 \newcommand{\bm}[1]{{\mbox{{\boldmath$#1$}}}}        % Fettdruck in Formeln
 \newcommand{\mat}[1]{\boldsymbol{#1}}
+\renewcommand{\floatpagefraction}{.8}%
   
  % ---------- Theorems ----------
  \theoremstyle{definition}
@@ -1543,19 +1544,56 @@ So let's start with the results, where we sought to investigate the impact of va
 
 After performing the expected signature calculations, we can note that the behaviour of the signature keys was most affected by changes in $\theta$, $\sigma$ and $r$. However, the parameters $\rho$ and $\kappa$ also have an effect, although less noticeable.
 
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=\textwidth]{1_parameter_sigma.png}
+	\caption{Scatter Plot Analysis of the Variation of Expected Signature Components in Relation to Changes in the \textit{Sigma} Parameter.}
+	\label{1_parameter_sigma}
+\end{figure}
 
-Now have a look at the results of calculations with the $\sigma$ parameter. It can be noted that the keys (1), (1,3) and (3,1) have high variance and widely scattered in the graph. The remaining keys, namely (2), (1,1), (1,2), (2,1), (2,2), (2,3) and (3,2) have a a distinct dependency on the variations of the parameter value of $\sigma$. It has been observed that the key (1,2) exhibits an inverse relationship with the \textit{sigma} parameter. Specifically, as the value of the $\sigma$ parameter increases, the corresponding value of the key decreases. Furthermore, it has been established that the component (1,2) is restricted to only accept negative values. keys display a positive correlation with the $\sigma$ parameter, such that an increase in the parameter value results in an increase in the value of the keys. Additionally, it has been observed that the keys (1,1), (1,2), (2,1) and (3,2) exhibit greater variability, particularly at higher values of the $\sigma$ parameter, as compared to the other keys.
 
-Proceeding to the results based on the variations of the $\theta$ parameter, it was observed that a majority of the keys displayed high levels of dispersion. However, an exception to this trend was noted in the keys (1,1), (1,2), (2,1) and (2,2), which exhibited a well-defined dependence on changes in the $\theta$ parameter value. For example, it was observed that the keys (1,1), (2,1), and (2,2) displayed a positive correlation with the parameter, such that an increase in the value of $\theta$ resulted in an increase in the value of the respective key. Conversely, it was noted that the key (1,2) demonstrated an inverse relationship with the parameter, and was observed to only accept negative values. In addition, observation of the data reveals that the keys (2) and (2,3) displayed a distinct behavior with respect to variations in the \textit{kappa} parameter. Specifically, it was noted that for small values of $\theta$, the values of these keys were relatively high, however, as the parameter was slightly increased, a sharp decrease in the values of these keys was observed, followed by a diffusion in their values.
+Now have a look at the results of calculations with the $\sigma$ parameter, see Figure \ref{1_parameter_sigma}. It can be noted that the keys (1), (1,3) and (3,1) have high variance and widely scattered in the graph. The remaining keys, namely (2), (1,1), (1,2), (2,1), (2,2), (2,3) and (3,2) have a a distinct dependency on the variations of the parameter value of $\sigma$. It has been observed that the key (1,2) exhibits an inverse relationship with the \textit{sigma} parameter. Specifically, as the value of the $\sigma$ parameter increases, the corresponding value of the key decreases. Furthermore, it has been established that the component (1,2) is restricted to only accept negative values. keys display a positive correlation with the $\sigma$ parameter, such that an increase in the parameter value results in an increase in the value of the keys. Additionally, it has been observed that the keys (1,1), (1,2), (2,1) and (3,2) exhibit greater variability, particularly at higher values of the $\sigma$ parameter, as compared to the other keys.
 
-By examining the results obtained by varying the parameter $\kappa$, it was determined that a limited number of the expected signature keys exhibited a correlation with changes in this parameter. Specifically, one can observe that the keys (1,1), (1,2), (2,1) and (2,2) displayed a decrease in value as the value of the $\kappa$ parameter increased. While the keys (1,1) and (2,1) showed the same trend as the other keys previously mentioned, it was determined that these keys presented a higher degree of dispersion, as evidenced by the corresponding graphs. No notable correlation was observed in the keys (1), (2), (1,3), (2,3), (3,1) and (3,2). Additionally, it was observed that key (1,2) began to accept negative values, approximately when $\kappa$ was greater than 1.7.
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=\textwidth]{1_parameter_theta.png}
+	\caption{Scatter Plot Analysis of the Variation of Expected Signature Components in Relation to Changes in the \textit{Theta} Parameter.}
+	\label{1_parameter_theta}
+\end{figure}
+
+
+Proceeding to the results based on the variations of the $\theta$ parameter, it was observed that a majority of the keys displayed high levels of dispersion, see Figure \ref{1_parameter_theta}. However, an exception to this trend was noted in the keys (1,1), (1,2), (2,1) and (2,2), which exhibited a well-defined dependence on changes in the $\theta$ parameter value. For example, it was observed that the keys (1,1), (2,1), and (2,2) displayed a positive correlation with the parameter, such that an increase in the value of $\theta$ resulted in an increase in the value of the respective key. Conversely, it was noted that the key (1,2) demonstrated an inverse relationship with the parameter, and was observed to only accept negative values. In addition, observation of the data reveals that the keys (2) and (2,3) displayed a distinct behavior with respect to variations in the \textit{kappa} parameter. Specifically, it was noted that for small values of $\theta$, the values of these keys were relatively high, however, as the parameter was slightly increased, a sharp decrease in the values of these keys was observed, followed by a diffusion in their values.
+
+
+By examining the results obtained by varying the parameter $\kappa$, it was determined that a limited number of the expected signature keys exhibited a correlation with changes in this parameter, see Figure \ref{1_parameter_kappa}. Specifically, one can observe that the keys (1,1), (1,2), (2,1) and (2,2) displayed a decrease in value as the value of the $\kappa$ parameter increased. While the keys (1,1) and (2,1) showed the same trend as the other keys previously mentioned, it was determined that these keys presented a higher degree of dispersion, as evidenced by the corresponding graphs. No notable correlation was observed in the keys (1), (2), (1,3), (2,3), (3,1) and (3,2). Additionally, it was observed that key (1,2) began to accept negative values, approximately when $\kappa$ was greater than $1.7$.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=\textwidth]{1_parameter_kappa.png}
+	\caption{Scatter Plot Analysis of the Variation of Expected Signature Components in Relation to Changes in the \textit{Kappa} Parameter.}
+	\label{1_parameter_kappa}
+\end{figure}
 
 After analyzing the results of the expected signatures, we can note that only three keys have special patterns in their distribution. For example, (1,2) and (2,1) have a strong correlation with the change of $\rho$. While (1,2) takes negative values and decreases with increasing $\rho$, (2,1) has the opposite trend. Moreover, in the graph (1,1) we can note the tendency to increase with the growth of parameter values, though this key has a larger dispersion in comparison to the previous described keys.
 
-Upon examination of the results of the expected signatures, it was determined that only three components displayed distinct patterns in their distribution. Specifically, it was observed that the keys (1,1), (1,2) and (2,1) exhibited a strong correlation with variations in the \textit{rho} parameter. In particular, the key (1,2) was found to mostly accept negative values and displayed a decrease in value as the $\rho$ parameter increased, while the key (2,1) and (1,1) displayed the opposite trend. Additionally, while the key (1,1) showed a tendency to increase with increasing parameter values, it also showed a greater degree of dispersion in the same way as (1,2).
+Upon examination of the results of the expected signatures based on the change in parameter $\rho$, it was determined that only three components displayed distinct patterns in their distribution, see Figure \ref{1_parameter_rho}. Specifically, it was observed that the keys (1,1), (1,2) and (2,1) exhibited a strong correlation with variations in the \textit{rho} parameter. In particular, the key (1,2) was found to mostly accept negative values and displayed a decrease in value as the $\rho$ parameter increased, while the key (2,1) and (1,1) displayed the opposite trend. Additionally, while the key (1,1) showed a tendency to increase with increasing parameter values, it also showed a greater degree of dispersion in the same way as (1,2).
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=\textwidth]{1_parameter_rho.png}
+	\caption{Scatter Plot Analysis of the Variation of Expected Signature Components in Relation to Changes in the \textit{Rho} Parameter.}
+	\label{1_parameter_rho}
+\end{figure}
 
 
-By considering the results obtained when varying a non-primary parameter of the Heston model, namely the interest rate $r$, it was determined that several components of the expected signatures exhibited a strong correlation with this parameter. Specifically, the components (1), (1,3) and (3,1), which by definition have a dependence on the estimated price and time, were found to be highly correlated with $r$, meaning that it increases with increasing values of the parameter. Additionally, a similar tendency was observed in the keys (1,1) and (2,1), although this correlation was determined to be weaker and these keys showed a relatively higher degree of dispersion.
+By considering the results obtained when varying a non-primary parameter of the Heston model, namely the interest rate $r$, it was determined that several components of the expected signatures exhibited a strong correlation with this parameter, see Figure \ref{1_parameter_r}. Specifically, the components (1), (1,3) and (3,1), which by definition have a dependence on the estimated price and time, were found to be highly correlated with $r$, meaning that it increases with increasing values of the parameter. Additionally, a similar tendency was observed in the keys (1,1) and (2,1), although this correlation was determined to be weaker and these keys showed a relatively higher degree of dispersion.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=\textwidth]{1_parameter_r.png}
+	\caption{Scatter Plot Analysis of the Variation of Expected Signature Components in Relation to Changes in the \textit{r} Parameter.}
+	\label{1_parameter_r}
+\end{figure}
 
 After a comprehensive comparison of all the plots, several general similarities were discerned. One noteworthy observation is that regardless of the parameter that was varied, we consistently observed that the keys (1,1), (1,3) and (3,1) had large values, often exceeding hundreds or even thousands, as was the case for key (1,1). The greatest value was obtained in the case of the long-run variance $\theta$ (see Figure ...). Furthermore, the signature components, whose calculations were based on variance or variance over time, had relatively small values, typically less than 1. Consequently, in instances where the values of the parameters $\kappa$, $\rho$, and $r$ were varied, we observed the smallest values for key (2) (see Figure ...). It is also worth mentioning that key (1,2) had mostly negative values in most cases.
 
