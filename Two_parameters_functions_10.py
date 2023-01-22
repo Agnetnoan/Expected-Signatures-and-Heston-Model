@@ -24,11 +24,11 @@ sig_keys = esig.sigkeys(width_of_sig, depth_of_sig)
 sig_dim=signatory.signature_channels(width_of_sig,depth_of_sig)
 
 by_parameter_2 = {
-    "by_rs": np.linspace(0.01,0.15,10),  # list to store 50 elements for var1
-    "by_rhos": np.linspace(0.0,1.0,10),  # list to store 50 elements for var2
-    "by_sigmas": np.linspace(0.0,1.1,10),  # list to store 50 elements for var3
-    "by_kappas": np.linspace(.5,5.0,10),   # list to store 50 elements for var4
-    "by_thetas": np.linspace(0.01,0.8,10)  # list to store 50 elements for var5
+    "by_rs": np.linspace(0.01,0.15,10),  # list to store 10 elements for var1
+    "by_rhos": np.linspace(0.0,1.0,10),  # list to store 10 elements for var2
+    "by_sigmas": np.linspace(0.0,1.1,10),  # list to store 10 elements for var3
+    "by_kappas": np.linspace(.5,5.0,10),   # list to store 10 elements for var4
+    "by_thetas": np.linspace(0.01,0.8,10)  # list to store 10 elements for var5
 }
 # Define time_array and empty tensor for prices and sigmas, signatures and expected signatures
 time_array = np.arange(steps)
