@@ -45,7 +45,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
               n=0
               for theta in by_parameter_2["by_thetas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, theta, theta, rhos, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
@@ -65,7 +65,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
               n=0
               for kappa in by_parameter_2["by_kappas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, theta, theta, rhos, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -83,9 +83,9 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_thetas"].shape[0],by_parameter_2["by_sigmas"].shape[0],sig_dim))
         for theta in by_parameter_2["by_thetas"]:
               n=0
-              for kappa in by_parameter_2["by_sigmas"]:
+              for sigma in by_parameter_2["by_sigmas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -101,11 +101,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='sigma' and par2=='theta':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_sigmas"].shape[0],by_parameter_2["by_thetas"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_sigmas"].shape[0],by_parameter_2["by_thetas"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_sigmas"]:
+        for sigma in by_parameter_2["by_sigmas"]:
               n=0
-              for kappa in by_parameter_2["by_thetas"]:
+              for theta in by_parameter_2["by_thetas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -123,9 +123,9 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_thetas"].shape[0],by_parameter_2["by_rhos"].shape[0],sig_dim))
         for theta in by_parameter_2["by_thetas"]:
               n=0
-              for kappa in by_parameter_2["by_rhos"]:
+              for rho in by_parameter_2["by_rhos"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -141,11 +141,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='rho' and par2=='theta':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_rhos"].shape[0],by_parameter_2["by_thetas"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_rhos"].shape[0],by_parameter_2["by_thetas"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_rhos"]:
+        for rho in by_parameter_2["by_rhos"]:
               n=0
-              for kappa in by_parameter_2["by_thetas"]:
+              for theta in by_parameter_2["by_thetas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -162,11 +162,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='sigma' and par2=='kappa':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_sigmas"].shape[0],by_parameter_2["by_kappas"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_sigmas"].shape[0],by_parameter_2["by_kappas"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_sigmas"]:
+        for sigma in by_parameter_2["by_sigmas"]:
               n=0
               for kappa in by_parameter_2["by_kappas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -182,11 +182,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='kappa' and par2=='sigma':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_kappas"].shape[0],by_parameter_2["by_sigmas"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_kappas"].shape[0],by_parameter_2["by_sigmas"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_kappas"]:
+        for kappa in by_parameter_2["by_kappas"]:
               n=0
-              for kappa in by_parameter_2["by_sigmas"]:
+              for sigma in by_parameter_2["by_sigmas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -202,11 +202,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='kappa' and par2=='rho':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_kappas"].shape[0],by_parameter_2["by_rhos"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_kappas"].shape[0],by_parameter_2["by_rhos"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_kappas"]:
+        for kappa in by_parameter_2["by_kappas"]:
               n=0
-              for kappa in by_parameter_2["by_rhos"]:
+              for rho in by_parameter_2["by_rhos"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -222,11 +222,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='rho' and par2=='kappa':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_rhos"].shape[0],by_parameter_2["by_kappas"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_rhos"].shape[0],by_parameter_2["by_kappas"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_rhos"]:
+        for rho in by_parameter_2["by_rhos"]:
               n=0
               for kappa in by_parameter_2["by_kappas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -242,11 +242,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='rho' and par2=='sigma':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_rhos"].shape[0],by_parameter_2["by_sigmas"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_rhos"].shape[0],by_parameter_2["by_sigmas"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_rhos"]:
+        for rho in by_parameter_2["by_rhos"]:
               n=0
-              for kappa in by_parameter_2["by_sigmas"]:
+              for sigma in by_parameter_2["by_sigmas"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, thetas, thetas, rho, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
@@ -262,11 +262,11 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
     if par1=='sigma' and par2=='rho':
         sign_signatory_2_parameters=torch.zeros((by_parameter_2["by_sigmas"].shape[0],by_parameter_2["by_rhos"].shape[0],paths,sig_dim))
         Exp_sign_signatory_results_2_parameters=torch.zeros((by_parameter_2["by_sigmas"].shape[0],by_parameter_2["by_rhos"].shape[0],sig_dim))
-        for theta in by_parameter_2["by_sigmas"]:
+        for sigma in by_parameter_2["by_sigmas"]:
               n=0
-              for kappa in by_parameter_2["by_rhos"]:
+              for rho in by_parameter_2["by_rhos"]:
                         # Caclulation of 10000 paths of prices and sigmas
-                        prices_1, sigs_1 = generate_heston_paths(S, T, r, kappa, theta, theta, rho, sigma, steps, paths, return_vol=True)
+                        prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, thetas, thetas, rho, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
                         #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
