@@ -30,10 +30,9 @@ by_parameter_2 = {
     "by_kappas": np.linspace(.5,5.0,50),   # list to store 50 elements for var4
     "by_thetas": np.linspace(0.01,0.8,50)  # list to store 50 elements for var5
 }
-# Define time_array and empty tensor for prices and sigmas, signatures and expected signatures
+# Define time_array and empty tensor for prices and sigmas
 time_array = np.arange(steps)
 prices_and_sigs_with_time_tensor = torch.zeros((paths,steps, width_of_sig ))
-
 
 def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rhos, sigmas, steps, paths, par1, par2):
     m=0

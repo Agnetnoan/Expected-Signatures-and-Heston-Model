@@ -30,7 +30,7 @@ by_parameter_2 = {
     "by_kappas": np.linspace(.5,5.0,10),   # list to store 10 elements for var4
     "by_thetas": np.linspace(0.01,0.8,10)  # list to store 10 elements for var5
 }
-# Define time_array and empty tensor for prices and sigmas, signatures and expected signatures
+# Define time_array and empty tensor for prices and sigmas
 time_array = np.arange(steps)
 prices_and_sigs_with_time_tensor = torch.zeros((paths,steps, width_of_sig ))
 
@@ -68,7 +68,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, theta, theta, rhos, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -88,7 +88,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -108,7 +108,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -128,7 +128,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -148,7 +148,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, theta, theta, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -169,7 +169,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -189,7 +189,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rhos, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -209,7 +209,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -229,7 +229,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappa, thetas, thetas, rho, sigmas, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -249,7 +249,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, thetas, thetas, rho, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
@@ -269,7 +269,7 @@ def signatures_calculations_with_2parameters(S, T, rs, kappas, thetas, v_0s, rho
                         prices_1, sigs_1 = generate_heston_paths(S, T, rs, kappas, thetas, thetas, rho, sigma, steps, paths, return_vol=True)
                         for j in range(paths):
                             prices_and_sigs_with_time_tensor[j] = torch.tensor([prices_1[j], sigs_1[j], time_array]).T
-                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 100, 3])
+                        #     shape of prices_and_sigs_witout_time_tensor=torch.Size([10000, 50, 3])
 
                         sign_signatory_2_parameters[m][n] = signatory.signature(prices_and_sigs_with_time_tensor, depth_of_sig)
                         #     shape of  sign_ps_signatory_differentranges=torch.Size([50, 50, 10000, 12])
